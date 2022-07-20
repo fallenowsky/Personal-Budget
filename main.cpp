@@ -13,106 +13,137 @@ struct User {
 
 };
 
+void addUserToXmlFile(User user);
+void readUsersFromXml();
 
 
-int main()
-{
-    CMarkup xml;
-    User user;
+void addUserData() {
 
-   /*
-    int id = 0;
-    string login = "", haslo = "";
-   cout << "Podaj login: "; cin >> login;
-   cout << "Podaj haslo: "; cin >> haslo;
+        User user;
+        int id = 0, ilu = 0;
+        string login = "", haslo = "", imie = "", nazwisko = "";
 
+        cout << "Ilu uzytkownikow dodac?: "; cin >> ilu;
 
+ while(ilu--){
 
+        cout << "Podaj id: "; cin >> user.id;
+        cout << "Podaj login: ";
+        cin >> user.login;
+        cout << "Podaj haslo: ";
+        cin >> user.haslo;
+        cout << "Podaj imie: ";
+        cin >> user.imie;
+        cout << "Podaj nazwisko: ";
+        cin >> user.nazwisko;
 
-    bool fileExists = xml.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\proba_XML.xml" ); // zwraca 1 jesli otworzy plik i go zaladuje. Laduje informacje z pliku
+        addUserToXmlFile(user);
+    }
 
-    if ( !fileExists )
-        xml.AddElem("Users"); // dodanie pierwszej galezi
+        readUsersFromXml();
+}
+
+void addUserToXmlFile(User user) {
+        CMarkup xml;
+
+        bool fileExists = xml.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\proba_XML.xml" ); // zwraca 1 jesli otworzy plik i go zaladuje. Laduje informacje z pliku
+
+        if ( !fileExists )
+            xml.AddElem("Users"); // dodanie pierwszej galezi
 
         xml.FindElem();                      // przechodzenie miedzy kolejnymi wezlami/elementami.Zaglebianie sie do kolejnych galezi pliku XML. Znajduje korzen
         xml.IntoElem();                     // wchodzi do korzenia
         xml.AddElem("User");               // dodaje nowy wezel
         xml.IntoElem();                         // wchodzi do tego wezla
-        xml.AddElem("UserId",id);               // dodaje znacznik 1
-        xml.AddElem("Login", login);           // dodaje znacznik 2
-        xml.AddElem("Password", haslo);      // dodaje znacznik 3
-        xml.AddElem("Name", "Marcin");
-
-        xml.AddElem("Surname", "Miaso");
+        xml.AddElem("UserId",user.id);               // dodaje znacznik 1
+        xml.AddElem("Login", user.login);           // dodaje znacznik 2
+        xml.AddElem("Password", user.haslo);      // dodaje znacznik 3
+        xml.AddElem("Name", user.imie);
+        xml.AddElem("Surname", user.nazwisko);
 
 
         xml.Save("proba_XML.xml"); // zapisanie pliku pod podanu nazwa w katalogu z projektem
 
-    */
+}
 
 
-    bool fileExists = xml.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\proba_XML.xml" );
+void readUsersFromXml() {
 
-    if ( fileExists ){
+    CMarkup xml;
 
-        xml.ResetPos();
-        xml.FindElem();
-        xml.IntoElem();
-        xml.FindElem();
-        xml.IntoElem();
+        bool fileExists = xml.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\proba_XML.xml" );
 
-         xml.FindElem();
-         string id = xml.GetData();
+        if ( fileExists ) {
 
-         xml.OutOfElem();
+            xml.ResetPos();
+            xml.FindElem();
+            xml.IntoElem();
+            xml.FindElem();
+            xml.IntoElem();
 
-         cout << id << endl;
+            xml.FindElem();
+            //xml.FindElem();
+            string id = xml.GetData();
 
+            xml.OutOfElem();
 
-         while ( xml.FindElem() ){
-
-         xml.IntoElem();
-         xml.FindElem();
-         string id1 = xml.GetData();
-         cout << id1 << endl;
-         xml.OutOfElem();
-
-         }
+            cout << id << endl;
 
 
+            while ( xml.FindElem() ) {
 
+                xml.IntoElem();
+                xml.FindElem();
 
+                string id1 = xml.GetData();
+                cout << id1 << endl;
+                xml.OutOfElem();
 
+        }
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-    time_t czas; cout << czas << endl;
-    struct tm * ptr;
-    time( & czas );
-    ptr = localtime( & czas );
-    char * data = asctime( ptr );
-    cout << "Data: " << data <<endl;
-    time_t sukundy = time(NULL);
-
-
-*/
-
-    return 0;
 }
+
+
+int main() {
+
+
+addUserData();
+
+return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+
+        time_t czas; cout << czas << endl;
+        struct tm * ptr;
+        time( & czas );
+        ptr = localtime( & czas );
+        char * data = asctime( ptr );
+        cout << "Data: " << data <<endl;
+        time_t sukundy = time(NULL);
+
+
+    */
+
+
+
