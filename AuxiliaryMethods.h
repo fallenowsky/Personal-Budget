@@ -9,12 +9,14 @@ using namespace std;
 
 
 
-class AuxiliaryMethods{
+class AuxiliaryMethods {
 
 public:
     static char displayMainMenu();
     static string readLine();
     static int transformStringToInt(string stringNumber);
+    static bool checkInputDataValidity(string userData);
+    static string transformFirstLetterToHighRestToLow(string userData);
 
 
 };

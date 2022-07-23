@@ -87,8 +87,6 @@ int UserFile::getLastUserId() {
         }
 
     }
-    cout << lastUserId << endl;
-    system("pause");
 
     return lastUserId;
 }

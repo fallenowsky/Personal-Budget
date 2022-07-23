@@ -2,13 +2,22 @@
 
 
 
-void UserMenedzer::userRegister(){
+void UserMenedzer::userRegister() {
 
     userOperations.userRegister();
 
 }
 
-bool UserMenedzer::ifUsersEmpty(){
+void UserMenedzer::logInUser() {
+
+    loggedUserId = userOperations.logInUser();
+
+    //if ( loggedUserId > 0 )
+
+
+}
+
+bool UserMenedzer::ifUsersEmpty() {
 
     if ( users.empty() == 1)
         return true;
@@ -17,9 +26,10 @@ bool UserMenedzer::ifUsersEmpty(){
 
 }
 
-void UserMenedzer::displayRegisteredUsers(){
 
-for (int i = 0; i < users.size(); ++i) {
+void UserMenedzer::displayRegisteredUsers() {
+
+    for (int i = 0; i < users.size(); ++i) {
 
         cout << users[i].getUserId() << endl;
         cout << users[i].getUserLogin() << endl;
@@ -28,8 +38,6 @@ for (int i = 0; i < users.size(); ++i) {
         cout << users[i].getUserSurname() << endl;
 
     }
-
-    //system("pause");
 
 }
 

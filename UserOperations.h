@@ -9,16 +9,18 @@
 using namespace std;
 
 
-class UserOperations{
+class UserOperations {
 
     //XmlFile xmlfile;
     User getUserData();
     UserFile userFile;
+    vector <User> users;
 
 public:
     UserOperations(string userFileName) : userFile(userFileName) { };
     void userRegister();
     vector <User> readUsersFromXmlFile();
+    int logInUser();
 
 
 
