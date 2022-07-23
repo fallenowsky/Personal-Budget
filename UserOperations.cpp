@@ -7,7 +7,7 @@ void UserOperations::userRegister(){
 
     user = getUserData();
 
-    if ( userfile.addUserToXmlFile(user) )
+    if ( userFile.addUserToXmlFile(user) )
         cout << "You have successfully added a new user to file ";
     else
         cout << "There was a problem with adding a new user to file";
@@ -21,10 +21,17 @@ User UserOperations::getUserData(){
 
     string input = "";
 
-    //user.setUserId(userFile.getLastUserID() + 1);
-    cin.get();
+    user.setUserId( userFile.getLastUserId() + 1 );
+
+    label:
     cout << "Enter user login: "; input = AuxiliaryMethods::readLine();
+    if ( userFile.ifLoginFree(input) )
     user.setUserLogin(input);
+    else {
+
+        cout << "This login is occupied by another user. Try one more time!\n";
+        goto label;
+    }
 
     cout << "Enter user password: "; input = AuxiliaryMethods::readLine();
     user.setUserPassword(input);
@@ -36,4 +43,14 @@ User UserOperations::getUserData(){
     user.setUserSurname(input);
 
     return user;
+}
+
+vector <User> UserOperations::readUsersFromXmlFile(){
+
+    vector <User> users;
+
+    users = userFile.readUsersFromXmlFile();
+
+    return users;
+
 }

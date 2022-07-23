@@ -13,11 +13,13 @@ class UserOperations{
 
     //XmlFile xmlfile;
     User getUserData();
-    UserFile userfile;
-
+    UserFile userFile;
 
 public:
+    UserOperations(string userFileName) : userFile(userFileName) { };
     void userRegister();
+    vector <User> readUsersFromXmlFile();
+
 
 
 };

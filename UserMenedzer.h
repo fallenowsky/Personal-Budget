@@ -9,11 +9,16 @@
 class UserMenedzer {
 
     UserOperations userOperations;
+    vector <User> users;
 
 
 public:
 
+    UserMenedzer(string userFileName) : userOperations(userFileName){ users = userOperations.readUsersFromXmlFile(); }
     void userRegister();
+    void displayRegisteredUsers();
+    bool ifUsersEmpty();
+
 };
 
 
