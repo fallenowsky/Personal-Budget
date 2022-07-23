@@ -12,7 +12,11 @@ void UserMenedzer::logInUser() {
 
     loggedUserId = userOperations.logInUser();
 
-    //if ( loggedUserId > 0 )
+    if ( loggedUserId > 0 ){
+        accountOperations = new AccountOperations();
+        choice = AuxiliaryMethods::displayUserMenu();
+        callCorrespondingFunction();
+    }
 
 
 }
@@ -23,6 +27,24 @@ bool UserMenedzer::ifUsersEmpty() {
         return true;
     else
         return false;
+
+}
+
+void UserMenedzer::addIncome(){
+
+    accountOperations -> addIncome(loggedUserId);
+}
+
+void UserMenedzer::callCorrespondingFunction(){
+
+        switch(choice){
+
+    case '1':
+            addIncome();
+            break;
+
+        }
+
 
 }
 

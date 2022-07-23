@@ -4,14 +4,19 @@
 
 #include "UserOperations.h"
 #include "AuxiliaryMethods.h"
+#include "AccountOperations.h"
 
 
 class UserMenedzer {
 
     UserOperations userOperations;
-    //AccountOperations *accountOperations;
+    AccountOperations *accountOperations;
     vector <User> users;
     int loggedUserId;
+    char choice;
+
+    void callCorrespondingFunction();
+    void addIncome();
 
 
 public:
