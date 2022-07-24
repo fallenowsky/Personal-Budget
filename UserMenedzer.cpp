@@ -27,6 +27,12 @@ void UserMenedzer::displayActualMonthBalance(){
 
 }
 
+void UserMenedzer::displayPreviousMonthBalance(){
+
+    accountOperations -> displayPreviousMonthBalance();
+
+}
+
 void UserMenedzer::displaySelectedPeriodBalance(){
 
     accountOperations -> displayChoosenPeriodBalance();
@@ -56,6 +62,9 @@ void UserMenedzer::callCorrespondingFunction(){
             break;
     case '3':
             displayActualMonthBalance();
+            break;
+    case '4':
+            displayPreviousMonthBalance();
             break;
     case '5':
             displaySelectedPeriodBalance();

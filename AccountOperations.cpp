@@ -137,6 +137,54 @@ void AccountOperations::getActualMonthIncome(){
         }
 }
 
+void AccountOperations::displayPreviousMonthBalance(){
+
+    double previousMonthIncome = 0, previousMonthExpense = 0;
+
+    previousMonthIncome = getPreviousMonthIncome();
+
+    cout << previousMonthIncome << endl;
+    system("pause");
+
+
+
+}
+
+double AccountOperations::getPreviousMonthIncome(){
+
+    Date date;
+
+    date = AuxiliaryMethods::getSystemTime();
+
+    int actualDateInt = 0, daysCountInPreviousMonth = 0, numberOfActualDay = 0, endOfPreviousMonth = 0, beginOfPreviousMonth = 0 ;
+    double previousMonthIncomes = 0;
+
+        actualDateInt = readActualDateAndConvertToInt();
+
+        daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( date.getMonth() - 1 );
+
+        numberOfActualDay = date.getDay();
+
+        endOfPreviousMonth = actualDateInt - numberOfActualDay; // <
+
+        beginOfPreviousMonth = endOfPreviousMonth  - 100; // >
+
+
+        for ( int k = 0; k < incomes.size(); ++k){
+
+
+            if ( incomes[k].getIncomeDate() > beginOfPreviousMonth && incomes[k].getIncomeDate() < endOfPreviousMonth ){
+
+                previousMonthIncomes += incomes[k].getIncomeAmount();
+
+            }
+
+        }
+
+    return previousMonthIncomes;
+
+}
+
 void AccountOperations::displayChoosenPeriodBalance(){
 
     string dateString = "", dateToString = "";
@@ -148,14 +196,14 @@ void AccountOperations::displayChoosenPeriodBalance(){
     cout << "Enter date from which would you like to search: ";
     dateString = AuxiliaryMethods::readLine();
 
-    if ( AuxiliaryMethods::ifDateFormatCorrect(dateString) ){
+    if ( AuxiliaryMethods::checkDateIfCorrect(dateString) ){
 
         dateFromInt = AuxiliaryMethods::fetchDigitsFromDate(dateString);
 
         cout << "Enter a date to which would you like to search: ";
         dateToString = AuxiliaryMethods::readLine();
 
-        if ( AuxiliaryMethods::ifDateFormatCorrect(dateToString)){
+        if ( AuxiliaryMethods::checkDateIfCorrect(dateToString)){
 
             dateToInt = AuxiliaryMethods::fetchDigitsFromDate(dateToString);
 

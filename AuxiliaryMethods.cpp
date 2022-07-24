@@ -152,10 +152,11 @@ double AuxiliaryMethods::convertStringToDouble(string stringNumber) {
     return ammount;
 }
 
-bool AuxiliaryMethods::checkDateIfCorrect(string date) {
+bool AuxiliaryMethods::checkDateIfCorrect(string &date) {
 
     bool dateFormat = ifDateFormatCorrect(date);
     bool yearDateMonth = ifYearMonthDayCorrect(date);
+    eraseZerosIfExists(date);
 
     if ( dateFormat && yearDateMonth )
         return true;
@@ -268,14 +269,62 @@ bool AuxiliaryMethods::ifYearMonthDayCorrect(string date) {
 
 }
 
-int AuxiliaryMethods::fetchDigitsFromDate(string date) {
+void AuxiliaryMethods::eraseZerosIfExists(string &date) {
+
+    int amountOfSigns = date.size();
+
+    for ( int i = 0; i < amountOfSigns; ++i) { //2022-04-05 // 2022-4-5
+
+        if ( i == 5 || i == 7) {
+
+            if (date[i] == '0'){
+
+                date.erase(i,1);
+                amountOfSigns = date.size();
+            }
+
+        }
+
+    }
+    if ( amountOfSigns == 10 && date[8] == '0')
+        date.erase(8,1);
+
+}
+
+int AuxiliaryMethods::fetchDigitsFromDate(string date) { //2022-07-17
 
     string dateNumbers = "";
     int dateInt = 0;
 
+    int dateSigns = date.size();
+
+    if ( dateSigns == 10){
+
     dateNumbers = date.substr(0,4);
     dateNumbers += date.substr(5,2);
     dateNumbers += date.substr(8,2);
+
+    }
+    if ( dateSigns == 9 && ( isdigit(date[7]) && isdigit(date[8]) ) ){
+
+    dateNumbers = date.substr(0,4);
+    dateNumbers += date.substr(5,1);
+    dateNumbers += date.substr(7,2);
+
+    } else{
+
+        dateNumbers = date.substr(0,4);
+        dateNumbers += date.substr(5,2);
+        dateNumbers += date.substr(8,1);
+    }
+
+    if ( dateSigns == 8 ){
+
+    dateNumbers = date.substr(0,4);
+    dateNumbers += date.substr(5,1);
+    dateNumbers += date.substr(7,1);
+
+    }
 
     dateInt = transformStringToInt(dateNumbers);
 
