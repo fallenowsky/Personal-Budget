@@ -4,12 +4,13 @@
 #include <vector>
 
 #include "Income.h"
+#include "XmlFiles.h"
 #include "Markup.h"
 #include "AuxiliaryMethods.h"
 
 
 
-class IncomeFile{
+class IncomeFile : public XmlFiles{
 
    CMarkup xmlIncomeFile;
 
@@ -22,8 +23,7 @@ public:
     void addLoggedUserIncomeToXmlFile(Income income);
 
     vector <Income> readLoggedUserIncomesFromXmlFile();
-    int getLastIncomeId(vector <Income> &incomes);
-
+    int getLastIncomeId();
 
 
 

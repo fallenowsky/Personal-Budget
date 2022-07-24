@@ -22,7 +22,7 @@ Income AccountOperations::getIncomeData(int loggedUserId) {
     char sign = {};
 
 
-    income.setIncomeId( incomeFile.getLastIncomeId(incomes) + 1 );
+    income.setIncomeId( incomeFile.getLastIncomeId() + 1 );
     cout << income.getIncomeId() << endl;
     system("pause");
 
@@ -109,3 +109,95 @@ int AccountOperations::readActualDateAndConvertToInt(){
     return dateInt;
 
 }
+
+void AccountOperations::getActualMonthIncome(){
+
+    Date date;
+    int actualDateInt = 0, monthNumber = 0, daysInActualMonth = 0, daysLeftInActualMonth = 0;
+
+        actualDateInt = readActualDateAndConvertToInt();
+
+        date = AuxiliaryMethods::getSystemTime();
+
+        monthNumber = date.getMonth();
+
+        daysInActualMonth = AuxiliaryMethods::howManyDaysInMonth(monthNumber);
+
+        daysLeftInActualMonth = daysInActualMonth - date.getDay();
+
+        for (int i = 0; i < incomes.size(); ++i){
+
+            if ( ( incomes[i].getIncomeDate() > actualDateInt - date.getDay() ) && ( incomes[i].getIncomeDate() <= actualDateInt + daysLeftInActualMonth ) ){
+
+
+                userIncomes += incomes[i].getIncomeAmount();
+
+            }
+
+        }
+}
+
+void AccountOperations::displayChoosenPeriodBalance(){
+
+    string dateString = "", dateToString = "";
+    int dateFromInt = 0, dateToInt = 0;
+    double incomes = 0, expenses = 0;
+
+
+   dateLabel:
+    cout << "Enter date from which would you like to search: ";
+    dateString = AuxiliaryMethods::readLine();
+
+    if ( AuxiliaryMethods::ifDateFormatCorrect(dateString) ){
+
+        dateFromInt = AuxiliaryMethods::fetchDigitsFromDate(dateString);
+
+        cout << "Enter a date to which would you like to search: ";
+        dateToString = AuxiliaryMethods::readLine();
+
+        if ( AuxiliaryMethods::ifDateFormatCorrect(dateToString)){
+
+            dateToInt = AuxiliaryMethods::fetchDigitsFromDate(dateToString);
+
+        } else{
+
+            cout << "Entered date is incorrect! Try one more time.\n";
+            system("pause");
+            system("cls");
+            goto dateLabel;
+        }
+
+    } else{
+            cout << "Entered date is incorrect! Try one more time.\n";
+            system("pause");
+            system("cls");
+            goto dateLabel;
+
+    }
+
+
+        incomes = getChoosenPeriodIncome(dateFromInt, dateToInt);
+
+}
+
+double AccountOperations::getChoosenPeriodIncome(int dateFrom, int dateTo){
+
+    double periodIncome = 0;
+
+    for ( int j = 0; j < incomes.size(); ++j){
+
+        if ( incomes[j].getIncomeDate() >= dateFrom && incomes[j].getIncomeDate() <= dateTo ){
+
+              periodIncome += incomes[j].getIncomeAmount();
+
+        }
+
+    }
+
+    cout << periodIncome << endl;
+    system("pause");
+    return periodIncome;
+
+}
+
+

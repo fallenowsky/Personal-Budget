@@ -21,6 +21,18 @@ void UserMenedzer::logInUser() {
 
 }
 
+void UserMenedzer::displayActualMonthBalance(){
+
+    accountOperations -> getActualMonthIncome();
+
+}
+
+void UserMenedzer::displaySelectedPeriodBalance(){
+
+    accountOperations -> displayChoosenPeriodBalance();
+
+}
+
 bool UserMenedzer::ifUsersEmpty() {
 
     if ( users.empty() == 1)
@@ -41,6 +53,12 @@ void UserMenedzer::callCorrespondingFunction(){
 
     case '1':
             addIncome();
+            break;
+    case '3':
+            displayActualMonthBalance();
+            break;
+    case '5':
+            displaySelectedPeriodBalance();
             break;
 
         }

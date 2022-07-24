@@ -13,15 +13,18 @@ class AccountOperations {
 
     IncomeFile incomeFile;
     vector <Income> incomes;
+    double userIncomes;
 
     Income getIncomeData(int loggedUserId);
     int readActualDateAndConvertToInt();
+    double getChoosenPeriodIncome(int dateFrom, int dateTo);
 
 public:
 
-    AccountOperations(int LOGGED_USER_ID) : incomeFile(LOGGED_USER_ID)  { incomes = incomeFile.readLoggedUserIncomesFromXmlFile(); }
+    AccountOperations(int LOGGED_USER_ID) : incomeFile(LOGGED_USER_ID)  { incomes = incomeFile.readLoggedUserIncomesFromXmlFile(); userIncomes = 0;}
     void addIncome(int loggedUserId);
-
+    void getActualMonthIncome();
+    void displayChoosenPeriodBalance();
 
 
 };

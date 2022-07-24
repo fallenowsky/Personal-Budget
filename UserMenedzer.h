@@ -17,7 +17,8 @@ class UserMenedzer {
 
     void callCorrespondingFunction();
     void addIncome();
-
+    void displayActualMonthBalance();
+    void displaySelectedPeriodBalance();
 
 public:
 
@@ -32,6 +33,7 @@ public:
     void displayRegisteredUsers();
     bool ifUsersEmpty();
     void logInUser();
+
 
 };
 

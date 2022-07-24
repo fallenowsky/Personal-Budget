@@ -96,20 +96,35 @@ vector <Income> IncomeFile::readLoggedUserIncomesFromXmlFile() {
 
 }
 
-int IncomeFile::getLastIncomeId(vector <Income> &incomes){
+int IncomeFile::getLastIncomeId() {
 
-int lastIncomeId = 0;
 
-    int incomesCount = incomes.size();
+    bool ifIncomeFileExists = xmlIncomeFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + INCOME_FILE_NAME );
 
-    for ( int j = 0; j < incomesCount; ++j){
+    string xmlIncomeId = "";
+    int xmlIncomeIdInt = 0;
 
-        if (j == incomesCount - 1){
+    if ( ifIncomeFileExists ) {
 
-            lastIncomeId = incomes[j].getIncomeId();
-            return lastIncomeId;
+        xmlIncomeFile.ResetPos();
+        xmlIncomeFile.FindElem();
+        xmlIncomeFile.IntoElem();
+
+        while ( xmlIncomeFile.FindElem() == true ) {
+
+            xmlIncomeFile.IntoElem();
+
+            xmlIncomeFile.FindElem();
+            xmlIncomeId = xmlIncomeFile.GetData();
+            xmlIncomeIdInt = AuxiliaryMethods::transformStringToInt(xmlIncomeId);
+            xmlIncomeFile.OutOfElem();
+
         }
 
     }
 
+    return xmlIncomeIdInt;
 }
+
+
+
