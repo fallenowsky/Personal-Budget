@@ -22,7 +22,10 @@ Income AccountOperations::getIncomeData(int loggedUserId) {
     char sign = {};
 
 
-    income.setIncomeId(1);
+    income.setIncomeId( incomeFile.getLastIncomeId(incomes) + 1 );
+    cout << income.getIncomeId() << endl;
+    system("pause");
+
     income.setIncomeUserId(loggedUserId);
 
 
@@ -33,6 +36,7 @@ Income AccountOperations::getIncomeData(int loggedUserId) {
     if ( sign == 'y' ) {
 
         dateInt = readActualDateAndConvertToInt();
+        income.setIncomeDate(dateInt);
 
         cout << "Enter name of item: ";
         userInput =  AuxiliaryMethods::readLine();
@@ -42,6 +46,8 @@ Income AccountOperations::getIncomeData(int loggedUserId) {
         cout << "Enter amount of item: ";
         userInput = AuxiliaryMethods::readLine();
         income.setIncomeAmount( AuxiliaryMethods::convertStringToDouble(userInput) );
+
+        incomeFile.addLoggedUserIncomeToXmlFile(income);
 
 
     } else {
@@ -53,6 +59,7 @@ dateLabel:
         if ( AuxiliaryMethods::checkDateIfCorrect(userInput) ) {
 
             dateInt = AuxiliaryMethods::fetchDigitsFromDate(userInput);
+            income.setIncomeDate(dateInt);
 
             cout << "Enter name of item: ";
             userInput =  AuxiliaryMethods::readLine();
@@ -61,6 +68,8 @@ dateLabel:
             cout << "Enter amount of item: ";
             userInput = AuxiliaryMethods::readLine();
             income.setIncomeAmount( AuxiliaryMethods::convertStringToDouble(userInput) );
+
+            incomeFile.addLoggedUserIncomeToXmlFile(income);
 
 
         } else {

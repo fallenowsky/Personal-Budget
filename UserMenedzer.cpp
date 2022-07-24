@@ -13,7 +13,7 @@ void UserMenedzer::logInUser() {
     loggedUserId = userOperations.logInUser();
 
     if ( loggedUserId > 0 ){
-        accountOperations = new AccountOperations();
+        accountOperations = new AccountOperations(loggedUserId);
         choice = AuxiliaryMethods::displayUserMenu();
         callCorrespondingFunction();
     }

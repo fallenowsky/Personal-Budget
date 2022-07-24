@@ -11,7 +11,7 @@ int Income::getIncomeUserId(){
     return this -> incomeUserId;
 }
 
-string Income::getIncomeDate(){
+int Income::getIncomeDate(){
 
     return this -> incomeDate;
 }
@@ -36,7 +36,7 @@ void Income::setIncomeUserId(int incomeUserId){
     this -> incomeUserId = incomeUserId;
 }
 
-void Income::setIncomeDate(string incomeDate){
+void Income::setIncomeDate(int incomeDate){
 
     this -> incomeDate = incomeDate;
 }
