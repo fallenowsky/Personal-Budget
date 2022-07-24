@@ -62,6 +62,15 @@ int AuxiliaryMethods::transformStringToInt(string stringNumber) {
     return intNumber;
 }
 
+string AuxiliaryMethods::convertIntToString(int number){
+
+    string numberS = "";
+
+    numberS = to_string(number);
+
+    return numberS;
+}
+
 bool AuxiliaryMethods::checkInputDataValidity(string userData) {
 
     if ( userData.length() > 3 )
@@ -125,11 +134,9 @@ Date AuxiliaryMethods::getSystemTime(){
     struct tm * st_time;
     st_time = localtime( & timeT );
 
-    date.setDay( st_time -> tm_wday );
-    date.setMonth( st_time -> tm_mon );
-    date.setYear( st_time -> tm_year );
-
-   // std::cout << dzien << " :: " << miesiac << std::endl;
+    date.setDay( st_time -> tm_mday );
+    date.setMonth( st_time -> tm_mon + 1);
+    date.setYear( st_time -> tm_year + 1900 );
 
     return date;
 
@@ -150,7 +157,7 @@ bool AuxiliaryMethods::checkDateIfCorrect(string date){
    bool dateFormat = ifDateFormatCorrect(date);
    bool yearDateMonth = ifYearMonthDayCorrect(date);
 
-   if ( (dateFormat && yearDateMonth) )
+   if ( dateFormat && yearDateMonth )
     return true;
    else
     return false;
@@ -204,17 +211,18 @@ bool AuxiliaryMethods::ifDateFormatCorrect(string date){
 bool AuxiliaryMethods::ifYearMonthDayCorrect(string date){
 
     Date systemDate;
-    string ammount = "";
+    string numbersFromDateString = "";
     int year = 0;
     int month = 0;
     int day = 0;
+    int daysInMonth = 0;
     bool yearIsOk;
     bool monthIsOk;
     bool dayIsOk;
 
 
-    ammount = date.substr(0,4);
-    year = transformStringToInt(ammount);
+    numbersFromDateString = date.substr(0,4);
+    year = transformStringToInt(numbersFromDateString);
 
     systemDate = getSystemTime();
 
@@ -222,18 +230,42 @@ bool AuxiliaryMethods::ifYearMonthDayCorrect(string date){
             yearIsOk = true;
 
 
-    ammount = date.substr(5,2);
-    month = transformStringToInt(ammount);
+    numbersFromDateString = date.substr(5,2);
+    month = transformStringToInt(numbersFromDateString);
 
-    if  ( ( month >= 1 && month <= systemDate.getMonth()) )
+    if ( year < systemDate.getYear() ){
+
+         if  ( ( month >= 1 && month <= 12) )
         monthIsOk = true;
 
+    }
 
-    ammount = date.substr(8,2);
-    day = transformStringToInt(ammount);
+    else if ( year == systemDate.getYear() ){
 
-    if ( (day >= 1 && day <= systemDate.getDay()) )
-        dayIsOk = true;
+           if (  month > 0 && month <= systemDate.getMonth())
+                monthIsOk = true;
+    }
+    else
+        monthIsOk = false;
+
+
+    numbersFromDateString = date.substr(8,2);
+    day = transformStringToInt(numbersFromDateString);
+    daysInMonth = howManyDaysInMonth(month);
+
+    if ( (month < systemDate.getMonth()) ){
+
+        if ( day > 0 && day <= daysInMonth)
+            dayIsOk = true;
+    }
+    else if ( month == systemDate.getMonth() ){
+
+        if ( day > 0 && day <= systemDate.getDay() )
+            dayIsOk = true;
+    }else
+        dayIsOk = false;
+
+
 
     if ( (yearIsOk && monthIsOk && dayIsOk ) )
         return true;
@@ -257,3 +289,35 @@ int AuxiliaryMethods::fetchDigitsFromDate(string date)
     return dateInt;
 
 }
+
+bool AuxiliaryMethods::ifLeapYear(){
+
+    Date date;
+
+    date = getSystemTime();
+
+    int year = date.getYear();
+
+    if ( (year % 4 == 0  &&  year % 100 != 0) || (year % 400 == 0) )
+        return 1;
+    else
+        return 0;
+}
+
+int AuxiliaryMethods::howManyDaysInMonth(int monthNumber){
+
+    if ( monthNumber == 1 || monthNumber == 3 || monthNumber == 5 || monthNumber == 7 || monthNumber == 8 || monthNumber == 10 || monthNumber == 12)
+        return 31;
+    else if ( monthNumber == 4 || monthNumber == 6 || monthNumber == 9 || monthNumber == 11 )
+        return 30;
+    else if ( monthNumber == 2 ){
+
+        if ( ifLeapYear() )
+            return 29;
+        else
+            return 28;
+    }
+
+}
+
+

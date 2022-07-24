@@ -11,6 +11,7 @@
 class AccountOperations{
 
 Income getIncomeData(int loggedUserId);
+int readActualDateAndConvertToInt();
 
 public:
 

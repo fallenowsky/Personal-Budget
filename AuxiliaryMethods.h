@@ -28,6 +28,9 @@ public:
     static bool ifDateFormatCorrect(string date);
     static bool ifYearMonthDayCorrect(string date);
     static int fetchDigitsFromDate(string date);
+    static string convertIntToString(int number);
+    static bool ifLeapYear();
+    static int howManyDaysInMonth(int monthNumber);
 
 
 };
