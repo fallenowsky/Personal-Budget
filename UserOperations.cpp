@@ -130,3 +130,5 @@ vector <User> UserOperations::readUsersFromXmlFile() {
     return users;
 
 }
+
+

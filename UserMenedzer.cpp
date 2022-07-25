@@ -12,8 +12,30 @@ void UserMenedzer::logInUser() {
 
     loggedUserId = userOperations.logInUser();
 
-    //if ( loggedUserId > 0 )
+    if ( loggedUserId > 0 ){
+        accountOperations = new AccountOperations(loggedUserId);
+        choice = AuxiliaryMethods::displayUserMenu();
+        callCorrespondingFunction();
+    }
 
+
+}
+
+void UserMenedzer::displayActualMonthBalance(){
+
+    accountOperations -> displayActualMonthBalance();
+
+}
+
+void UserMenedzer::displayPreviousMonthBalance(){
+
+    accountOperations -> displayPreviousMonthBalance();
+
+}
+
+void UserMenedzer::displaySelectedPeriodBalance(){
+
+    accountOperations -> displayChoosenPeriodBalance();
 
 }
 
@@ -23,6 +45,41 @@ bool UserMenedzer::ifUsersEmpty() {
         return true;
     else
         return false;
+
+}
+
+void UserMenedzer::addIncome(){
+
+    accountOperations -> addIncome(loggedUserId);
+}
+
+void UserMenedzer::addExpense(){
+
+    accountOperations -> addExpense(loggedUserId);
+}
+
+void UserMenedzer::callCorrespondingFunction(){
+
+        switch(choice){
+
+    case '1':
+            addIncome();
+            break;
+    case '2':
+            addExpense();
+            break;
+    case '3':
+            displayActualMonthBalance();
+            break;
+    case '4':
+            displayPreviousMonthBalance();
+            break;
+    case '5':
+            displaySelectedPeriodBalance();
+            break;
+
+        }
+
 
 }
 
