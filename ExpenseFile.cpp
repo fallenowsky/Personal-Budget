@@ -17,7 +17,7 @@ void ExpenseFile::addLoggedUserExpenseToXmlFile(Expense expense) {
     xmlExpenseFile.AddElem( "ExpenseUserId", expense.getExpenseUserId() );
     xmlExpenseFile.AddElem( "ExpenseDate", expense.getExpenseDate() );
     xmlExpenseFile.AddElem( "ExpenseItem", expense.getExpenseItem() );
-    xmlExpenseFile.AddElem( "ExpenseAmount", expense.getExpenseAmount() );
+    xmlExpenseFile.AddElem( "ExpenseAmount", to_string( expense.getExpenseAmount() ) );
 
     xmlExpenseFile.Save( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + EXPENSE_FILE_NAME );
 
