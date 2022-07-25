@@ -11,7 +11,7 @@ class Expense{
 
     int expenseId;
     int expenseUserId;
-    string expenseDate;
+    int expenseDate;
     string expenseItem;
     double expenseAmount;
 
@@ -19,13 +19,13 @@ public:
 
     int getExpenseId();
     int getExpenseUserId();
-    string getExpenseDate();
+    int getExpenseDate();
     string getExpenseItem();
     double getExpenseAmount();
 
     void setExpenseId(int expenseId);
     void setExpenseUserId(int expenseUserID);
-    void setExpenseDate(string expenseDate);
+    void setExpenseDate(int expenseDate);
     void setExpenseItem(string expenseItem);
     void setExpenseAmount(double expenseAmmount);
 };

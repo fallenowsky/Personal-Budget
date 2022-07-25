@@ -23,7 +23,7 @@ void UserMenedzer::logInUser() {
 
 void UserMenedzer::displayActualMonthBalance(){
 
-    accountOperations -> getActualMonthIncome();
+    accountOperations -> displayActualMonthBalance();
 
 }
 
@@ -53,12 +53,20 @@ void UserMenedzer::addIncome(){
     accountOperations -> addIncome(loggedUserId);
 }
 
+void UserMenedzer::addExpense(){
+
+    accountOperations -> addExpense(loggedUserId);
+}
+
 void UserMenedzer::callCorrespondingFunction(){
 
         switch(choice){
 
     case '1':
             addIncome();
+            break;
+    case '2':
+            addExpense();
             break;
     case '3':
             displayActualMonthBalance();

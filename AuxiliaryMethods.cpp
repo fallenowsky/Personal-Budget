@@ -277,7 +277,7 @@ void AuxiliaryMethods::eraseZerosIfExists(string &date) {
 
         if ( i == 5 || i == 7) {
 
-            if (date[i] == '0'){
+            if (date[i] == '0') {
 
                 date.erase(i,1);
                 amountOfSigns = date.size();
@@ -298,31 +298,31 @@ int AuxiliaryMethods::fetchDigitsFromDate(string date) { //2022-07-17
 
     int dateSigns = date.size();
 
-    if ( dateSigns == 10){
+    if ( dateSigns == 10) {
 
-    dateNumbers = date.substr(0,4);
-    dateNumbers += date.substr(5,2);
-    dateNumbers += date.substr(8,2);
+        dateNumbers = date.substr(0,4);
+        dateNumbers += date.substr(5,2);
+        dateNumbers += date.substr(8,2);
 
     }
-    if ( dateSigns == 9 && ( isdigit(date[7]) && isdigit(date[8]) ) ){
+    if ( dateSigns == 9 && ( isdigit(date[7]) && isdigit(date[8]) ) ) {
 
-    dateNumbers = date.substr(0,4);
-    dateNumbers += date.substr(5,1);
-    dateNumbers += date.substr(7,2);
+        dateNumbers = date.substr(0,4);
+        dateNumbers += date.substr(5,1);
+        dateNumbers += date.substr(7,2);
 
-    } else{
+    } else {
 
         dateNumbers = date.substr(0,4);
         dateNumbers += date.substr(5,2);
         dateNumbers += date.substr(8,1);
     }
 
-    if ( dateSigns == 8 ){
+    if ( dateSigns == 8 ) {
 
-    dateNumbers = date.substr(0,4);
-    dateNumbers += date.substr(5,1);
-    dateNumbers += date.substr(7,1);
+        dateNumbers = date.substr(0,4);
+        dateNumbers += date.substr(5,1);
+        dateNumbers += date.substr(7,1);
 
     }
 

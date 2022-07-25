@@ -4,6 +4,7 @@
 
 void IncomeFile::addLoggedUserIncomeToXmlFile(Income income) {
 
+
     bool ifIncomeFileExists = xmlIncomeFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + INCOME_FILE_NAME );
 
     if ( !ifIncomeFileExists )
@@ -17,7 +18,8 @@ void IncomeFile::addLoggedUserIncomeToXmlFile(Income income) {
     xmlIncomeFile.AddElem( "IncomeUserId", income.getIncomeUserId() );
     xmlIncomeFile.AddElem( "IncomeDate", income.getIncomeDate() );
     xmlIncomeFile.AddElem( "IncomeItem", income.getIncomeItem() );
-    xmlIncomeFile.AddElem( "IncomeAmount", income.getIncomeAmount() );
+    xmlIncomeFile.AddElem( "IncomeAmount",to_string( income.getIncomeAmount() ) );
+
 
     xmlIncomeFile.Save( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + INCOME_FILE_NAME );
 
@@ -78,6 +80,7 @@ vector <Income> IncomeFile::readLoggedUserIncomesFromXmlFile() {
 
                 xmlIncomeFile.FindElem();
                 xmlInput = xmlIncomeFile.GetData();
+
                 income.setIncomeAmount( AuxiliaryMethods::convertStringToDouble(xmlInput) );
 
 

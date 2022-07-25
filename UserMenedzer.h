@@ -17,6 +17,7 @@ class UserMenedzer {
 
     void callCorrespondingFunction();
     void addIncome();
+    void addExpense();
     void displayActualMonthBalance();
     void displayPreviousMonthBalance();
     void displaySelectedPeriodBalance();
