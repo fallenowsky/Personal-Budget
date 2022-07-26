@@ -17,6 +17,7 @@ class Expense{
 
 public:
 
+    Expense(int expenseId = 0, int expenseUserId = 0, int expenseDate = 200011, string expenseItem = "Default name", double expenseAmount = 0.0) {}
     int getExpenseId();
     int getExpenseUserId();
     int getExpenseDate();

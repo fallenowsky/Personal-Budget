@@ -17,14 +17,7 @@ class User{
 
 public:
 
-   User() {
-
-        userId = 0;
-        userLogin = "Default";
-        userPassword = "Default";
-        userName = "Default";
-        userSurname = "Default";
-    }
+   User( int userId = 0, string userLogin = "Default", string userPassword = "Default", string userName = "Default",  string userSurname = "Default" ) { }
 
     int getUserId();
     string getUserLogin();

@@ -12,6 +12,7 @@ class Date{
 
 public:
 
+Date ( int year  = 2022, int month = 1, int day = 1 ){ }
 int getYear();
 int getMonth();
 int getDay();
@@ -19,6 +20,7 @@ int getDay();
 void setYear(int year);
 void setMonth(int month);
 void setDay(int day);
+
 
 
 };
