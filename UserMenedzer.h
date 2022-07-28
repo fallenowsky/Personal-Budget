@@ -21,6 +21,7 @@ class UserMenedzer {
     void displayActualMonthBalance();
     void displayPreviousMonthBalance();
     void displaySelectedPeriodBalance();
+    void changeUserPassword();
 
 public:
 
@@ -29,12 +30,19 @@ public:
         : userOperations(userFileName) {
         users = userOperations.readUsersFromXmlFile();
         loggedUserId = 0;
+        accountOperations = NULL;
 
     }
+    ~UserMenedzer(){
+
+        delete accountOperations;
+        accountOperations = NULL;
+    }
     void userRegister();
-    void displayRegisteredUsers();
     bool ifUsersEmpty();
     void logInUser();
+    void logOutUser();
+
 
 
 };

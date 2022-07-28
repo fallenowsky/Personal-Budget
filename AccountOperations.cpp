@@ -85,7 +85,7 @@ dateLabel:
 
 }
 
-int AccountOperations::readActualDateAndConvertToInt(){
+int AccountOperations::readActualDateAndConvertToInt() {
 
     Date date;
     string yearS = "", monthS = "", dayS = "", dateCollect = "";
@@ -94,113 +94,129 @@ int AccountOperations::readActualDateAndConvertToInt(){
     int day = 0;
     int dateInt = 0;
 
-        date = AuxiliaryMethods::getSystemTime();
+    date = AuxiliaryMethods::getSystemTime();
 
-        year = date.getYear();
-        yearS = AuxiliaryMethods::convertIntToString(year);
-        month = date.getMonth();
-        monthS = AuxiliaryMethods::convertIntToString(month);
-        day = date.getDay();
-        dayS = AuxiliaryMethods::convertIntToString(day);
-        dateCollect = yearS + monthS + dayS;
+    year = date.getYear();
+    yearS = AuxiliaryMethods::convertIntToString(year);
+    month = date.getMonth();
+    monthS = AuxiliaryMethods::convertIntToString(month);
+    day = date.getDay();
+    dayS = AuxiliaryMethods::convertIntToString(day);
+    dateCollect = yearS + monthS + dayS;
 
-        dateInt =  AuxiliaryMethods::transformStringToInt(dateCollect);
+    dateInt =  AuxiliaryMethods::transformStringToInt(dateCollect);
 
 
     return dateInt;
 
 }
 
-void AccountOperations::displayActualMonthBalance(){
+void AccountOperations::displayActualMonthBalance() {
 
-    double actualMonthIncome = 0, actualMonthExpense = 0;
+    if ( !incomes.empty () || !expenses.empty() ) {
 
-    actualMonthIncome = getActualMonthIncome();
+        double actualMonthIncome = 0, actualMonthExpense = 0;
 
-    actualMonthExpense = getActualMonthExpense();
+        actualMonthIncome = getActualMonthIncome();
 
-    cout << actualMonthIncome - actualMonthExpense << endl;
-    system("pause");
+        actualMonthExpense = getActualMonthExpense();
+
+        AuxiliaryMethods::sortIncomesAndExpenses(incomes,expenses);
+        AuxiliaryMethods::displayBalance(actualMonthIncome, actualMonthExpense,1);
+
+
+    } else {
+
+        cout << "There is no incomes or expenses!\n";
+        system("pause");
+
+    }
+
 
 }
 
-double AccountOperations::getActualMonthIncome(){
+double AccountOperations::getActualMonthIncome() {
 
     Date date;
     double userIncomes = 0;
     int actualDateInt = 0, monthNumber = 0, daysInActualMonth = 0, daysLeftInActualMonth = 0;
 
-        actualDateInt = readActualDateAndConvertToInt();
+    actualDateInt = readActualDateAndConvertToInt();
 
-        date = AuxiliaryMethods::getSystemTime();
+    date = AuxiliaryMethods::getSystemTime();
 
-        monthNumber = date.getMonth();
+    monthNumber = date.getMonth();
 
-        daysInActualMonth = AuxiliaryMethods::howManyDaysInMonth(monthNumber);
+    daysInActualMonth = AuxiliaryMethods::howManyDaysInMonth(monthNumber);
 
-        daysLeftInActualMonth = daysInActualMonth - date.getDay();
+    daysLeftInActualMonth = daysInActualMonth - date.getDay();
 
-        for (int i = 0; i < incomes.size(); ++i){
+    for (int i = 0; i < incomes.size(); ++i) {
 
-            if ( ( incomes[i].getIncomeDate() > actualDateInt - date.getDay() ) && ( incomes[i].getIncomeDate() <= actualDateInt + daysLeftInActualMonth ) ){
+        if ( ( incomes[i].getIncomeDate() > actualDateInt - date.getDay() ) && ( incomes[i].getIncomeDate() <= actualDateInt + daysLeftInActualMonth ) ) {
 
 
-                userIncomes += incomes[i].getIncomeAmount();
-
-            }
+            userIncomes += incomes[i].getIncomeAmount();
 
         }
-       return userIncomes;
+
+    }
+    return userIncomes;
 
 }
 
-double AccountOperations::getActualMonthExpense(){
+double AccountOperations::getActualMonthExpense() {
 
     Date date;
     double userExpenses = 0;
     int actualDateInt = 0, monthNumber = 0, daysInActualMonth = 0, daysLeftInActualMonth = 0;
 
-        actualDateInt = readActualDateAndConvertToInt();
+    actualDateInt = readActualDateAndConvertToInt();
 
-        date = AuxiliaryMethods::getSystemTime();
+    date = AuxiliaryMethods::getSystemTime();
 
-        monthNumber = date.getMonth();
+    monthNumber = date.getMonth();
 
-        daysInActualMonth = AuxiliaryMethods::howManyDaysInMonth(monthNumber);
+    daysInActualMonth = AuxiliaryMethods::howManyDaysInMonth(monthNumber);
 
-        daysLeftInActualMonth = daysInActualMonth - date.getDay();
+    daysLeftInActualMonth = daysInActualMonth - date.getDay();
 
-        for (int i = 0; i < expenses.size(); ++i){
+    for (int i = 0; i < expenses.size(); ++i) {
 
-            if ( ( expenses[i].getExpenseDate() > actualDateInt - date.getDay() ) && ( expenses[i].getExpenseDate() <= actualDateInt + daysLeftInActualMonth ) ){
+        if ( ( expenses[i].getExpenseDate() > actualDateInt - date.getDay() ) && ( expenses[i].getExpenseDate() <= actualDateInt + daysLeftInActualMonth ) ) {
 
 
-                userExpenses += expenses[i].getExpenseAmount();
-
-            }
+            userExpenses += expenses[i].getExpenseAmount();
 
         }
 
-      return userExpenses;
+    }
+
+    return userExpenses;
 
 }
 
-void AccountOperations::displayPreviousMonthBalance(){
+void AccountOperations::displayPreviousMonthBalance() {
 
-    double previousMonthIncome = 0, previousMonthExpense = 0;
+    if ( !incomes.empty() || !expenses.empty() ) {
 
-    previousMonthIncome = getPreviousMonthIncome();
+        double previousMonthIncome = 0, previousMonthExpense = 0;
 
-    previousMonthExpense = getPreviousMonthExpense();
+        previousMonthIncome = getPreviousMonthIncome();
 
-    cout << previousMonthIncome - previousMonthExpense << endl;
+        previousMonthExpense = getPreviousMonthExpense();
+
+        AuxiliaryMethods::sortIncomesAndExpenses(incomes,expenses);
+        AuxiliaryMethods::displayBalance(previousMonthIncome,previousMonthExpense,2);
+
+
+    } else
+        cout << "There is no incomes or expenses\n";
     system("pause");
 
-
-
 }
 
-double AccountOperations::getPreviousMonthIncome(){
+double AccountOperations::getPreviousMonthIncome() {
 
     Date date;
 
@@ -209,35 +225,33 @@ double AccountOperations::getPreviousMonthIncome(){
     int actualDateInt = 0, daysCountInPreviousMonth = 0, numberOfActualDay = 0, endOfPreviousMonth = 0, beginOfPreviousMonth = 0 ;
     double previousMonthIncomes = 0;
 
-        actualDateInt = readActualDateAndConvertToInt();
+    actualDateInt = readActualDateAndConvertToInt();
 
-        daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( date.getMonth() - 1 );
+    daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( date.getMonth() - 1 );
 
-        numberOfActualDay = date.getDay();
+    numberOfActualDay = date.getDay();
 
-        endOfPreviousMonth = actualDateInt - numberOfActualDay; // <
+    endOfPreviousMonth = actualDateInt - numberOfActualDay; // <
 
-        beginOfPreviousMonth = endOfPreviousMonth  - 100; // >
-
-
-        for ( int k = 0; k < incomes.size(); ++k){
+    beginOfPreviousMonth = endOfPreviousMonth  - 100; // >
 
 
-            if ( incomes[k].getIncomeDate() > beginOfPreviousMonth && incomes[k].getIncomeDate() < endOfPreviousMonth ){
+    for ( int k = 0; k < incomes.size(); ++k) {
 
-                previousMonthIncomes += incomes[k].getIncomeAmount();
 
-            }
+        if ( incomes[k].getIncomeDate() > beginOfPreviousMonth && incomes[k].getIncomeDate() < endOfPreviousMonth ) {
+
+            previousMonthIncomes += incomes[k].getIncomeAmount();
 
         }
-        cout << previousMonthIncomes << endl;
-        system("pause");
+
+    }
 
     return previousMonthIncomes;
 
 }
 
-double AccountOperations::getPreviousMonthExpense(){
+double AccountOperations::getPreviousMonthExpense() {
 
     Date date;
 
@@ -246,118 +260,116 @@ double AccountOperations::getPreviousMonthExpense(){
     int actualDateInt = 0, daysCountInPreviousMonth = 0, numberOfActualDay = 0, endOfPreviousMonth = 0, beginOfPreviousMonth = 0 ;
     double previousMonthExpenses = 0;
 
-        actualDateInt = readActualDateAndConvertToInt();
+    actualDateInt = readActualDateAndConvertToInt();
 
-        daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( date.getMonth() - 1 );
+    daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( date.getMonth() - 1 );
 
-        numberOfActualDay = date.getDay();
+    numberOfActualDay = date.getDay();
 
-        endOfPreviousMonth = actualDateInt - numberOfActualDay; // <
+    endOfPreviousMonth = actualDateInt - numberOfActualDay; // <
 
-        beginOfPreviousMonth = endOfPreviousMonth  - 100; // >
-
-
-        for ( int k = 0; k < expenses.size(); ++k){
+    beginOfPreviousMonth = endOfPreviousMonth  - 100; // >
 
 
-            if ( expenses[k].getExpenseDate() > beginOfPreviousMonth && expenses[k].getExpenseDate() < endOfPreviousMonth ){
+    for ( int k = 0; k < expenses.size(); ++k) {
 
-                previousMonthExpenses += expenses[k].getExpenseAmount();
 
-            }
+        if ( expenses[k].getExpenseDate() > beginOfPreviousMonth && expenses[k].getExpenseDate() < endOfPreviousMonth ) {
+
+            previousMonthExpenses += expenses[k].getExpenseAmount();
 
         }
 
-        cout << previousMonthExpenses << endl;
-        system("pause");
+    }
 
     return previousMonthExpenses;
 
 }
 
-void AccountOperations::displayChoosenPeriodBalance(){
+void AccountOperations::displayChoosenPeriodBalance() {
 
-    string dateString = "", dateToString = "";
-    int dateFromInt = 0, dateToInt = 0;
-    double incomes = 0, expenses = 0;
+    if ( !incomes.empty() || !expenses.empty() ) {
+
+        string dateString = "", dateToString = "";
+        int dateFromInt = 0, dateToInt = 0;
+        double incomesAmount = 0, expensesAmount = 0;
 
 
-   dateLabel:
-    cout << "Enter date from which would you like to search(Format: YYYY-MM-DD): ";
-    dateString = AuxiliaryMethods::readLine();
+dateLabel:
+        cout << "Enter date from which would you like to search(Format: YYYY-MM-DD): ";
+        dateString = AuxiliaryMethods::readLine();
 
-    if ( AuxiliaryMethods::checkDateIfCorrect(dateString) ){
+        if ( AuxiliaryMethods::checkDateIfCorrect(dateString) ) {
 
-        dateFromInt = AuxiliaryMethods::fetchDigitsFromDate(dateString);
+            dateFromInt = AuxiliaryMethods::fetchDigitsFromDate(dateString);
 
-        cout << "Enter a date to which would you like to search(Format: YYYY-MM-DD): ";
-        dateToString = AuxiliaryMethods::readLine();
+            cout << "Enter a date to which would you like to search(Format: YYYY-MM-DD): ";
+            dateToString = AuxiliaryMethods::readLine();
 
-        if ( AuxiliaryMethods::checkDateIfCorrect(dateToString)){
+            if ( AuxiliaryMethods::checkDateIfCorrect(dateToString)) {
 
-            dateToInt = AuxiliaryMethods::fetchDigitsFromDate(dateToString);
+                dateToInt = AuxiliaryMethods::fetchDigitsFromDate(dateToString);
 
-        } else{
+            } else {
 
+                cout << "Entered date is incorrect! Try one more time.\n";
+                system("pause");
+                system("cls");
+                goto dateLabel;
+            }
+
+        } else {
             cout << "Entered date is incorrect! Try one more time.\n";
             system("pause");
             system("cls");
             goto dateLabel;
+
         }
 
-    } else{
-            cout << "Entered date is incorrect! Try one more time.\n";
-            system("pause");
-            system("cls");
-            goto dateLabel;
 
-    }
+        incomesAmount = getChoosenPeriodIncome(dateFromInt, dateToInt);
+        expensesAmount = getChoosenPeriodExpense(dateFromInt, dateToInt);
 
+         AuxiliaryMethods::sortIncomesAndExpenses(incomes,expenses);
+         AuxiliaryMethods::displayBalance(incomesAmount, expensesAmount, 3);
 
-        incomes = getChoosenPeriodIncome(dateFromInt, dateToInt);
-        expenses = getChoosenPeriodExpense(dateFromInt, dateToInt);
-
-        cout << incomes - expenses << endl;
-        system("pause");
-
+    } else
+        cout << "There is no incomes or expenses\n";
+    system("pause");
 }
 
-double AccountOperations::getChoosenPeriodIncome(int dateFrom, int dateTo){
+double AccountOperations::getChoosenPeriodIncome(int dateFrom, int dateTo) {
 
     double periodIncome = 0;
 
-    for ( int j = 0; j < incomes.size(); ++j){
+    for ( int j = 0; j < incomes.size(); ++j) {
 
-        if ( incomes[j].getIncomeDate() >= dateFrom && incomes[j].getIncomeDate() <= dateTo ){
+        if ( incomes[j].getIncomeDate() >= dateFrom && incomes[j].getIncomeDate() <= dateTo ) {
 
-              periodIncome += incomes[j].getIncomeAmount();
+            periodIncome += incomes[j].getIncomeAmount();
 
         }
 
     }
 
-    cout << periodIncome << endl;
-    system("pause");
     return periodIncome;
 
 }
 
-double AccountOperations::getChoosenPeriodExpense(int dateFrom, int dateTo){
+double AccountOperations::getChoosenPeriodExpense(int dateFrom, int dateTo) {
 
     double periodExpense = 0;
 
-    for ( int j = 0; j < expenses.size(); ++j){
+    for ( int j = 0; j < expenses.size(); ++j) {
 
-        if ( expenses[j].getExpenseDate() >= dateFrom && expenses[j].getExpenseDate() <= dateTo ){
+        if ( expenses[j].getExpenseDate() >= dateFrom && expenses[j].getExpenseDate() <= dateTo ) {
 
-              periodExpense += expenses[j].getExpenseAmount();
+            periodExpense += expenses[j].getExpenseAmount();
 
         }
 
     }
 
-    cout << periodExpense << endl;
-    system("pause");
     return periodExpense;
 
 }

@@ -5,6 +5,8 @@
 void UserMenedzer::userRegister() {
 
     userOperations.userRegister();
+    users = userOperations.readUsersFromXmlFile();
+    logInUser();
 
 }
 
@@ -24,18 +26,24 @@ void UserMenedzer::logInUser() {
 void UserMenedzer::displayActualMonthBalance(){
 
     accountOperations -> displayActualMonthBalance();
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunction();
 
 }
 
 void UserMenedzer::displayPreviousMonthBalance(){
 
     accountOperations -> displayPreviousMonthBalance();
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunction();
 
 }
 
 void UserMenedzer::displaySelectedPeriodBalance(){
 
     accountOperations -> displayChoosenPeriodBalance();
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunction();
 
 }
 
@@ -51,13 +59,33 @@ bool UserMenedzer::ifUsersEmpty() {
 void UserMenedzer::addIncome(){
 
     accountOperations -> addIncome(loggedUserId);
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunction();
 }
 
 void UserMenedzer::addExpense(){
 
     accountOperations -> addExpense(loggedUserId);
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunction();
 }
 
+void UserMenedzer::changeUserPassword(){
+
+    userOperations.changeUserPassword(loggedUserId);
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunction();
+}
+
+void UserMenedzer::logOutUser(){
+
+    char choice = {0};
+    loggedUserId = 0;
+
+    delete accountOperations;
+    accountOperations = NULL;
+
+}
 void UserMenedzer::callCorrespondingFunction(){
 
         switch(choice){
@@ -77,24 +105,15 @@ void UserMenedzer::callCorrespondingFunction(){
     case '5':
             displaySelectedPeriodBalance();
             break;
+    case '6':
+            changeUserPassword();
+            break;
+    case '7':
+            logOutUser();
+            break;
 
         }
 
-
-}
-
-
-void UserMenedzer::displayRegisteredUsers() {
-
-    for (int i = 0; i < users.size(); ++i) {
-
-        cout << users[i].getUserId() << endl;
-        cout << users[i].getUserLogin() << endl;
-        cout << users[i].getUserPassword() << endl;
-        cout << users[i].getUserName() << endl;
-        cout << users[i].getUserSurname() << endl;
-
-    }
 
 }
 

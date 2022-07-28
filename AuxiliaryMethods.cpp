@@ -4,7 +4,7 @@
 
 char AuxiliaryMethods::displayMainMenu() {
 
-    char choice = {};
+    string choice = "";
 
     system("cls");
 
@@ -12,35 +12,163 @@ char AuxiliaryMethods::displayMainMenu() {
     cout << ">>>Main MENU<<< \n";
     cout << "1.User register\n";
     cout << "2.Log-in user\n";
-    cout << "3.Display all registered users\n";
     cout << "9.Exit program\n\n";
     cout << "Your choice: ";
-    cin >> choice;
-    cin.get();
+    choice = readLine();
+    //cin.get();
 
-    return choice;
+  if ( ifSignCorrect(choice) ){
+            return choice[0];
+  }
+
+
 }
 
 char AuxiliaryMethods::displayUserMenu() {
 
     char choice = {};
 
+    system("cls");
     cout << endl;
     cout << "1. Add income\n";
     cout << "2. Add expense\n";
     cout << "3. Display actual month balance\n";
     cout << "4. Display previous month balance\n";
     cout << "5. Display selected period balance\n";
-    cout << "6. Change password\n";
+    cout << "6. Change user password\n";
     cout << "7. Log-out user\n\n";
     cout << "Your choice: ";
     cin >> choice;
     cin.get();
 
+
     return choice;
 
 }
 
+void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <Expense> expenses){
+
+    vector <int> datesOfIncomes;
+    vector <int> datesOfExpenses;
+
+    Income income;
+    Expense expense;
+
+    int incomesCount = incomes.size();
+    int expensesCount = expenses.size();
+    int loopRepeats = 0;
+
+    if ( incomesCount >= expensesCount )
+            loopRepeats = incomesCount;
+            else
+                loopRepeats = expensesCount;
+
+    for ( int i = 0; i < loopRepeats; ++i){
+
+           datesOfIncomes.push_back( incomes[i].getIncomeDate() ) ;
+           datesOfExpenses.push_back( expenses[i].getExpenseDate() );
+
+    }
+
+    sort( datesOfIncomes.begin(), datesOfIncomes.end() );
+    sort( datesOfExpenses.begin(), datesOfExpenses.end() );
+
+   // for (int i = 0; i < loopRepeats; ++i){
+
+   //     cout << fixed << datesOfExpenses[i] <<endl;
+    //    system("pause");
+   // }
+
+    for ( int j = 0; j < loopRepeats; ++j){
+
+        for (int k = 0; k < incomesCount; ++k){
+
+            if ( datesOfIncomes[j] == incomes[k].getIncomeDate() ){
+                income.setIncomeId( incomes[k].getIncomeId() );
+                income.setIncomeUserId( incomes[k].getIncomeUserId() );
+                income.setIncomeDate( incomes[k].getIncomeDate() );
+                income.setIncomeAmount( incomes[k].getIncomeAmount() );
+                break;
+
+                }
+
+            }
+
+        for ( int l = 0; l < expensesCount; ++l){
+
+                if ( datesOfExpenses[j] ==  expenses[l].getExpenseDate() ){
+
+                    expense.setExpenseId( expenses[l].getExpenseId() );
+                    expense.setExpenseUserId( expenses[l].getExpenseUserId() );
+                    expense.setExpenseDate( expenses[l].getExpenseDate() );
+                    expense.setExpenseItem( expenses[l].getExpenseItem() );
+                    expense.setExpenseAmount( expenses[l].getExpenseAmount() );
+                    break;
+                }
+
+        }
+
+        displaySortedIncomesAndExpenses(income, expense);
+
+    }
+    //system("pause");
+
+}
+
+void AuxiliaryMethods::displaySortedIncomesAndExpenses(Income income,Expense expense){
+
+
+        cout << "\nIncome: " << "\t\t\tExpense: \n\n";
+        cout << "Income ID: " << income.getIncomeId() <<  "\t\t\tExpense id: " << expense.getExpenseId() <<endl;
+        cout << "Income User ID: " << income.getIncomeUserId() <<  "\t\tExpense User ID: " << expense.getExpenseUserId() <<endl;
+        cout << "Income Date: " << income.getIncomeDate() <<  "\t\tExpense Date: " << expense.getExpenseDate() <<endl;
+        cout << "Income Item: " << income.getIncomeItem() <<  "\t\t\tExpense Item: " << expense.getExpenseItem() <<endl;
+        cout << "Income Amount: " << income.getIncomeAmount() <<  "\t\tExpense Amount: " << expense.getExpenseAmount() <<endl << endl;
+
+
+
+}
+
+
+void AuxiliaryMethods::displayBalance(double incomes, double expenses, int whichBalance){
+
+string balanceType = "";
+
+    if ( whichBalance == 1 )
+        balanceType = " actual month ";
+    else if ( whichBalance == 2)
+        balanceType = " previous month ";
+    else
+        balanceType = " choosen period of time ";
+
+    cout <<"Your incomes from" << balanceType << "are equals to " << incomes;
+    cout <<"\t Your expenses from" << balanceType << "are equals to " << expenses << endl;
+    cout << "\nYour balance from" << balanceType <<": " << incomes - expenses << endl;
+
+    system("pause");
+
+
+}
+
+
+
+bool AuxiliaryMethods::ifSignCorrect(string choice){
+
+    int dataLength = choice.size();
+
+    while ( true ){
+
+        if ( dataLength > 1){
+            cout << "It's not a single sign! Try one more time: ";
+            choice = readLine();
+            dataLength = choice.length();
+            continue;
+        }else
+        return true;
+
+    }
+
+}
 
 string AuxiliaryMethods::readLine() {
 
