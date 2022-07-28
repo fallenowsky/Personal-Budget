@@ -81,12 +81,6 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
     sort( datesOfIncomes.begin(), datesOfIncomes.end() );
     sort( datesOfExpenses.begin(), datesOfExpenses.end() );
 
-   // for (int i = 0; i < loopRepeats; ++i){
-
-   //     cout << fixed << datesOfExpenses[i] <<endl;
-    //    system("pause");
-   // }
-
     for ( int j = 0; j < loopRepeats; ++j){
 
         for (int k = 0; k < incomesCount; ++k){
@@ -122,7 +116,7 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
 
     }
 
-    separateDateOktets(incomesSorted, expensesSorted);
+    //separateDateOktets(incomesSorted, expensesSorted);
     displaySortedIncomesAndExpenses(incomesSorted, expensesSorted);
 
 
@@ -158,62 +152,31 @@ void AuxiliaryMethods::separateDateOktets(vector <Income> &incomesSorted, vector
 
 void AuxiliaryMethods::displaySortedIncomesAndExpenses(vector <Income> incomesSorted, vector <Expense> expensesSorted){
 
-/*
- if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "\nIncome: "; if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () ) cout << "\t\t\tExpense: \n\n";
- if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income ID: " << income.getIncomeId(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () ) cout << "\t\t\tExpense id: " << expense.getExpenseId() <<endl;
- if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income User ID: " << income.getIncomeUserId(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () )cout  <<  "\t\tExpense User ID: " << expense.getExpenseUserId() <<endl;
- if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income Date: " << income.getIncomeDate(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () )  cout <<  "\t\tExpense Date: " << expense.getExpenseDate() <<endl;
- if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income Item: " << income.getIncomeItem(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () )  cout <<  "\t\tExpense Item: " << expense.getExpenseItem() <<endl;
- if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income Amount: " << income.getIncomeAmount(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () ) cout  <<  "\t\tExpense Amount: " << expense.getExpenseAmount() <<endl << endl;
-*/
-
     int incomesCount = incomesSorted.size();
     int expensesCount = expensesSorted.size();
     int smaller = 0, counter = 0;
 
-    if ( incomesCount <= expensesCount)
-        smaller = incomesCount;
-    else
-        smaller = expensesCount;
+        for ( int i = 0; i < incomesCount; ++i ){
 
+        cout << "\nINCOME NR" << i+1 << " :" <<" \n\n";
+        cout << "Income ID: " << incomesSorted[i].getIncomeId() << endl;
+        cout << "Income User ID: " << incomesSorted[i].getIncomeUserId() << endl;
+        cout << "Income Date: " << incomesSorted[i].getIncomeDate() <<endl ;
+        cout << "Income Item: " << incomesSorted[i].getIncomeItem() << endl;
+        cout << "Income Amount: " << incomesSorted[i].getIncomeAmount() << endl;
 
-        for ( int i = 0; i < smaller; ++i ){
-
-        cout << "\nIncome: \t\t\t" << "Expense\n";
-        cout << "Income ID: " << incomesSorted[i].getIncomeId(); cout << "\t\t\tExpense ID: " << expensesSorted[i].getExpenseId() << endl;
-        cout << "Income User ID: " << incomesSorted[i].getIncomeUserId(); cout  << "\t\tExpense User ID: " << expensesSorted[i].getExpenseUserId() <<endl;
-        cout << "Income Date: " << incomesSorted[i].getIncomeDate();  cout <<  "\t\tExpense Date: " << expensesSorted[i].getExpenseDate() <<endl;
-        cout << "Income Item: " << incomesSorted[i].getIncomeItem();   cout <<  "\t\tExpense Item: " << expensesSorted[i].getExpenseItem() <<endl;
-        cout << "Income Amount: " << incomesSorted[i].getIncomeAmount();  cout  <<  "\t\tExpense Amount: " << expensesSorted[i].getExpenseAmount() <<endl << endl;
-
-        counter = i;
         }
 
-        if ( smaller == incomesCount ){
+        for ( int i = 0; i < expensesCount; ++i){
 
-
-            for ( int i = counter + 1; i < (expensesCount - smaller) + counter + 1; ++i){
-
-                 cout << "\t\t\t\tExpense ID: " << expensesSorted[i].getExpenseId() << endl;
-                 cout  << "\t\t\t\tExpense User ID: " << expensesSorted[i].getExpenseUserId() <<endl;
-                 cout <<  "\t\t\t\tExpense Date: " << expensesSorted[i].getExpenseDate() <<endl;
-                 cout <<  "\t\t\t\tExpense Item: " << expensesSorted[i].getExpenseItem() <<endl;
-                 cout  <<  "\t\t\t\tExpense Amount: " << expensesSorted[i].getExpenseAmount() <<endl << endl;
+                 cout <<  "\t\t\tEXPENSE NR" << i+1 <<" :" <<" \n\n";
+                 cout <<  "\t\t\tExpense ID: " << expensesSorted[i].getExpenseId() << endl;
+                 cout << "\t\t\tExpense User ID: " << expensesSorted[i].getExpenseUserId() <<endl;
+                 cout <<  "\t\t\tExpense Date: " << expensesSorted[i].getExpenseDate() <<endl;
+                 cout <<  "\t\t\tExpense Item: " << expensesSorted[i].getExpenseItem() <<endl;
+                 cout << "\t\t\tExpense Amount: " << expensesSorted[i].getExpenseAmount() <<endl << endl;
             }
-        }
 
-        if ( smaller == expensesCount ){
-
-
-            for ( int i = counter + 1; i < (incomesCount - smaller) + counter + 1; ++i){
-
-                 cout << "Expense ID: " << incomesSorted[i].getIncomeId() << endl;
-                 cout  << "Expense User ID: " << incomesSorted[i].getIncomeUserId() <<endl;
-                 cout <<  "Expense Date: " << incomesSorted[i].getIncomeDate() <<endl;
-                 cout <<  "Expense Item: " << incomesSorted[i].getIncomeItem() <<endl;
-                 cout  <<  "Expense Amount: " << incomesSorted[i].getIncomeAmount() <<endl << endl;
-            }
-        }
 
 }
 

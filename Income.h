@@ -17,7 +17,7 @@ class Income{
 
 public:
 
-    Income(int incomeID = 0, int incomeUserId = 0, int incomeDate = 200011, string incomeItem = "Default name", double incomeAmount = 0.0) {};
+    Income(int incomeID = 0, int incomeUserId = 0, int incomeDate = 20000101, string incomeItem = "Default name", double incomeAmount = 0.0) {};
     int getIncomeId();
     int getIncomeUserId();
     int getIncomeDate();
