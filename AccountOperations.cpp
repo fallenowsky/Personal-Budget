@@ -121,7 +121,7 @@ void AccountOperations::displayActualMonthBalance() {
 
         actualMonthExpense = getActualMonthExpense();
 
-        AuxiliaryMethods::sortIncomesAndExpenses(incomes,expenses);
+        AuxiliaryMethods::sortIncomesAndExpenses(incomesData,expensesData);
         AuxiliaryMethods::displayBalance(actualMonthIncome, actualMonthExpense,1);
 
 
@@ -138,6 +138,7 @@ void AccountOperations::displayActualMonthBalance() {
 double AccountOperations::getActualMonthIncome() {
 
     Date date;
+    incomesData.clear();
     double userIncomes = 0;
     int actualDateInt = 0, monthNumber = 0, daysInActualMonth = 0, daysLeftInActualMonth = 0;
 
@@ -155,8 +156,8 @@ double AccountOperations::getActualMonthIncome() {
 
         if ( ( incomes[i].getIncomeDate() > actualDateInt - date.getDay() ) && ( incomes[i].getIncomeDate() <= actualDateInt + daysLeftInActualMonth ) ) {
 
-
             userIncomes += incomes[i].getIncomeAmount();
+            incomesData.push_back(incomes[i]);
 
         }
 
@@ -169,6 +170,7 @@ double AccountOperations::getActualMonthExpense() {
 
     Date date;
     double userExpenses = 0;
+    expensesData.clear();
     int actualDateInt = 0, monthNumber = 0, daysInActualMonth = 0, daysLeftInActualMonth = 0;
 
     actualDateInt = readActualDateAndConvertToInt();
@@ -185,8 +187,8 @@ double AccountOperations::getActualMonthExpense() {
 
         if ( ( expenses[i].getExpenseDate() > actualDateInt - date.getDay() ) && ( expenses[i].getExpenseDate() <= actualDateInt + daysLeftInActualMonth ) ) {
 
-
             userExpenses += expenses[i].getExpenseAmount();
+            expensesData.push_back(expenses[i]);
 
         }
 
@@ -206,7 +208,7 @@ void AccountOperations::displayPreviousMonthBalance() {
 
         previousMonthExpense = getPreviousMonthExpense();
 
-        AuxiliaryMethods::sortIncomesAndExpenses(incomes,expenses);
+        AuxiliaryMethods::sortIncomesAndExpenses(incomesData,expensesData);
         AuxiliaryMethods::displayBalance(previousMonthIncome,previousMonthExpense,2);
 
 
@@ -221,6 +223,7 @@ double AccountOperations::getPreviousMonthIncome() {
     Date date;
 
     date = AuxiliaryMethods::getSystemTime();
+    incomesData.clear();
 
     int actualDateInt = 0, daysCountInPreviousMonth = 0, numberOfActualDay = 0, endOfPreviousMonth = 0, beginOfPreviousMonth = 0 ;
     double previousMonthIncomes = 0;
@@ -242,6 +245,7 @@ double AccountOperations::getPreviousMonthIncome() {
         if ( incomes[k].getIncomeDate() > beginOfPreviousMonth && incomes[k].getIncomeDate() < endOfPreviousMonth ) {
 
             previousMonthIncomes += incomes[k].getIncomeAmount();
+            incomesData.push_back(incomes[k]);
 
         }
 
@@ -254,6 +258,7 @@ double AccountOperations::getPreviousMonthIncome() {
 double AccountOperations::getPreviousMonthExpense() {
 
     Date date;
+    expensesData.clear();
 
     date = AuxiliaryMethods::getSystemTime();
 
@@ -277,6 +282,7 @@ double AccountOperations::getPreviousMonthExpense() {
         if ( expenses[k].getExpenseDate() > beginOfPreviousMonth && expenses[k].getExpenseDate() < endOfPreviousMonth ) {
 
             previousMonthExpenses += expenses[k].getExpenseAmount();
+            expensesData.push_back(expenses[k]);
 
         }
 
@@ -330,7 +336,7 @@ dateLabel:
         incomesAmount = getChoosenPeriodIncome(dateFromInt, dateToInt);
         expensesAmount = getChoosenPeriodExpense(dateFromInt, dateToInt);
 
-         AuxiliaryMethods::sortIncomesAndExpenses(incomes,expenses);
+         AuxiliaryMethods::sortIncomesAndExpenses(incomesData,expensesData);
          AuxiliaryMethods::displayBalance(incomesAmount, expensesAmount, 3);
 
     } else
@@ -340,6 +346,7 @@ dateLabel:
 
 double AccountOperations::getChoosenPeriodIncome(int dateFrom, int dateTo) {
 
+    incomesData.clear();
     double periodIncome = 0;
 
     for ( int j = 0; j < incomes.size(); ++j) {
@@ -347,6 +354,7 @@ double AccountOperations::getChoosenPeriodIncome(int dateFrom, int dateTo) {
         if ( incomes[j].getIncomeDate() >= dateFrom && incomes[j].getIncomeDate() <= dateTo ) {
 
             periodIncome += incomes[j].getIncomeAmount();
+            incomesData.push_back(incomes[j]);
 
         }
 
@@ -358,6 +366,7 @@ double AccountOperations::getChoosenPeriodIncome(int dateFrom, int dateTo) {
 
 double AccountOperations::getChoosenPeriodExpense(int dateFrom, int dateTo) {
 
+    expensesData.clear();
     double periodExpense = 0;
 
     for ( int j = 0; j < expenses.size(); ++j) {
@@ -365,7 +374,7 @@ double AccountOperations::getChoosenPeriodExpense(int dateFrom, int dateTo) {
         if ( expenses[j].getExpenseDate() >= dateFrom && expenses[j].getExpenseDate() <= dateTo ) {
 
             periodExpense += expenses[j].getExpenseAmount();
-
+            expensesData.push_back(expenses[j]);
         }
 
     }

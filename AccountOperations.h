@@ -17,6 +17,8 @@ class AccountOperations {
     ExpenseFile expenseFile;
     vector <Income> incomes;
     vector <Expense> expenses;
+    vector <Income> incomesData;
+    vector <Expense> expensesData;
 
     Income getIncomeData(const int loggedUserId);
     Expense getExpenseData(const int loggedUserId);

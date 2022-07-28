@@ -48,8 +48,8 @@ char AuxiliaryMethods::displayUserMenu() {
 
 void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <Expense> expenses){
 
-    vector <int> datesOfIncomes;
-    vector <int> datesOfExpenses;
+    vector <double> datesOfIncomes;
+    vector <double> datesOfExpenses;
 
     Income income;
     Expense expense;
@@ -66,7 +66,12 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
     for ( int i = 0; i < loopRepeats; ++i){
 
            datesOfIncomes.push_back( incomes[i].getIncomeDate() ) ;
-           datesOfExpenses.push_back( expenses[i].getExpenseDate() );
+
+
+    }
+
+    for( int j = 0; j < expensesCount; ++j){
+        datesOfExpenses.push_back( expenses[j].getExpenseDate() );
 
     }
 
@@ -84,9 +89,11 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
         for (int k = 0; k < incomesCount; ++k){
 
             if ( datesOfIncomes[j] == incomes[k].getIncomeDate() ){
+
                 income.setIncomeId( incomes[k].getIncomeId() );
                 income.setIncomeUserId( incomes[k].getIncomeUserId() );
                 income.setIncomeDate( incomes[k].getIncomeDate() );
+                income.setIncomeItem( incomes[k].getIncomeItem() );
                 income.setIncomeAmount( incomes[k].getIncomeAmount() );
                 break;
 
@@ -118,12 +125,12 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
 void AuxiliaryMethods::displaySortedIncomesAndExpenses(Income income,Expense expense){
 
 
-        cout << "\nIncome: " << "\t\t\tExpense: \n\n";
-        cout << "Income ID: " << income.getIncomeId() <<  "\t\t\tExpense id: " << expense.getExpenseId() <<endl;
-        cout << "Income User ID: " << income.getIncomeUserId() <<  "\t\tExpense User ID: " << expense.getExpenseUserId() <<endl;
-        cout << "Income Date: " << income.getIncomeDate() <<  "\t\tExpense Date: " << expense.getExpenseDate() <<endl;
-        cout << "Income Item: " << income.getIncomeItem() <<  "\t\t\tExpense Item: " << expense.getExpenseItem() <<endl;
-        cout << "Income Amount: " << income.getIncomeAmount() <<  "\t\tExpense Amount: " << expense.getExpenseAmount() <<endl << endl;
+ if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "\nIncome: "; if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () ) cout << "\t\t\tExpense: \n\n";
+ if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income ID: " << income.getIncomeId(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () ) cout << "\t\t\tExpense id: " << expense.getExpenseId() <<endl;
+ if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income User ID: " << income.getIncomeUserId(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () )cout  <<  "\t\tExpense User ID: " << expense.getExpenseUserId() <<endl;
+ if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income Date: " << income.getIncomeDate(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () )  cout <<  "\t\tExpense Date: " << expense.getExpenseDate() <<endl;
+ if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income Item: " << income.getIncomeItem(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () )  cout <<  "\t\tExpense Item: " << expense.getExpenseItem() <<endl;
+ if ( income.getIncomeId() > 0 && expense.getExpenseUserId () ) cout << "Income Amount: " << income.getIncomeAmount(); if ( expense.getExpenseId() > 0 && expense.getExpenseUserId () ) cout  <<  "\t\tExpense Amount: " << expense.getExpenseAmount() <<endl << endl;
 
 
 
@@ -256,14 +263,27 @@ label:
 Date AuxiliaryMethods::getSystemTime() {
 
     Date date;
+    int day = 0, month = 0;
+    string dayS = "0", monthS = "0";
 
     time_t timeT;
     time( & timeT );
     struct tm * st_time;
     st_time = localtime( & timeT );
 
-    date.setDay( st_time -> tm_mday );
-    date.setMonth( st_time -> tm_mon + 1);
+    day = st_time -> tm_mday;
+    month = st_time -> tm_mon + 1;
+
+    if ( day < 10 ) {
+      dayS += convertIntToString(day);
+      day = transformStringToInt(dayS);
+    }
+    if ( month < 10){
+        monthS += convertIntToString(month);
+        month = transformStringToInt(monthS);
+    }
+    date.setDay( day );
+    date.setMonth( month + 1);
     date.setYear( st_time -> tm_year + 1900 );
 
     return date;
