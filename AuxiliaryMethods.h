@@ -23,7 +23,8 @@ class AuxiliaryMethods {
      static bool ifYearMonthDayCorrect(string date);
      static bool ifLeapYear();
      static bool ifSignCorrect(string choice);
-     static void displaySortedIncomesAndExpenses(Income income,Expense expense);
+     static void displaySortedIncomesAndExpenses(vector <Income> incomesSorted, vector <Expense> expensesSorted);
+     static void separateDateOktets(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
 
 
 public:

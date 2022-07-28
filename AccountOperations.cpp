@@ -89,19 +89,19 @@ int AccountOperations::readActualDateAndConvertToInt() {
 
     Date date;
     string yearS = "", monthS = "", dayS = "", dateCollect = "";
-    int year = 0;
-    int month = 0;
-    int day = 0;
+   // int year = 0;
+    //int month = 0;
+   // int day = 0;
     int dateInt = 0;
 
     date = AuxiliaryMethods::getSystemTime();
 
-    year = date.getYear();
-    yearS = AuxiliaryMethods::convertIntToString(year);
-    month = date.getMonth();
-    monthS = AuxiliaryMethods::convertIntToString(month);
-    day = date.getDay();
-    dayS = AuxiliaryMethods::convertIntToString(day);
+    yearS = date.getYear();
+    //yearS = AuxiliaryMethods::convertIntToString(year);
+    monthS = date.getMonth();
+   // monthS = AuxiliaryMethods::convertIntToString(month);
+    dayS = date.getDay();
+    //dayS = AuxiliaryMethods::convertIntToString(day);
     dateCollect = yearS + monthS + dayS;
 
     dateInt =  AuxiliaryMethods::transformStringToInt(dateCollect);
@@ -146,15 +146,15 @@ double AccountOperations::getActualMonthIncome() {
 
     date = AuxiliaryMethods::getSystemTime();
 
-    monthNumber = date.getMonth();
+    monthNumber = AuxiliaryMethods::transformStringToInt( date.getMonth() );
 
     daysInActualMonth = AuxiliaryMethods::howManyDaysInMonth(monthNumber);
 
-    daysLeftInActualMonth = daysInActualMonth - date.getDay();
+    daysLeftInActualMonth = daysInActualMonth - AuxiliaryMethods::transformStringToInt( date.getDay() );
 
     for (int i = 0; i < incomes.size(); ++i) {
 
-        if ( ( incomes[i].getIncomeDate() > actualDateInt - date.getDay() ) && ( incomes[i].getIncomeDate() <= actualDateInt + daysLeftInActualMonth ) ) {
+        if ( ( incomes[i].getIncomeDate() > actualDateInt - AuxiliaryMethods::transformStringToInt( date.getDay() ) )&& ( incomes[i].getIncomeDate() <= actualDateInt + daysLeftInActualMonth ) ) {
 
             userIncomes += incomes[i].getIncomeAmount();
             incomesData.push_back(incomes[i]);
@@ -177,15 +177,15 @@ double AccountOperations::getActualMonthExpense() {
 
     date = AuxiliaryMethods::getSystemTime();
 
-    monthNumber = date.getMonth();
+    monthNumber = AuxiliaryMethods::transformStringToInt( date.getMonth() );
 
     daysInActualMonth = AuxiliaryMethods::howManyDaysInMonth(monthNumber);
 
-    daysLeftInActualMonth = daysInActualMonth - date.getDay();
+    daysLeftInActualMonth = daysInActualMonth - AuxiliaryMethods::transformStringToInt( date.getDay() );
 
     for (int i = 0; i < expenses.size(); ++i) {
 
-        if ( ( expenses[i].getExpenseDate() > actualDateInt - date.getDay() ) && ( expenses[i].getExpenseDate() <= actualDateInt + daysLeftInActualMonth ) ) {
+        if ( ( expenses[i].getExpenseDate() > actualDateInt - AuxiliaryMethods::transformStringToInt( date.getDay() ) ) && ( expenses[i].getExpenseDate() <= actualDateInt + daysLeftInActualMonth ) ) {
 
             userExpenses += expenses[i].getExpenseAmount();
             expensesData.push_back(expenses[i]);
@@ -230,9 +230,9 @@ double AccountOperations::getPreviousMonthIncome() {
 
     actualDateInt = readActualDateAndConvertToInt();
 
-    daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( date.getMonth() - 1 );
+    daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( AuxiliaryMethods::transformStringToInt( date.getMonth() ) - 1 );
 
-    numberOfActualDay = date.getDay();
+    numberOfActualDay = AuxiliaryMethods::transformStringToInt( date.getDay() );
 
     endOfPreviousMonth = actualDateInt - numberOfActualDay; // <
 
@@ -267,9 +267,9 @@ double AccountOperations::getPreviousMonthExpense() {
 
     actualDateInt = readActualDateAndConvertToInt();
 
-    daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( date.getMonth() - 1 );
+    daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth(  AuxiliaryMethods::transformStringToInt( date.getMonth() ) - 1 );
 
-    numberOfActualDay = date.getDay();
+    numberOfActualDay = AuxiliaryMethods::transformStringToInt( date.getDay() );
 
     endOfPreviousMonth = actualDateInt - numberOfActualDay; // <
 
