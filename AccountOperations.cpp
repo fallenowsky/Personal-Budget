@@ -36,7 +36,7 @@ Income AccountOperations::getIncomeData(int loggedUserId) {
     if ( sign == 'y' ) {
 
         dateInt = readActualDateAndConvertToInt();
-        income.setIncomeDate(dateInt);
+        income.setIncomeDate( AuxiliaryMethods::convertIntToString(dateInt));
 
         cout << "Enter name of item: ";
         userInput =  AuxiliaryMethods::readLine();
@@ -60,7 +60,7 @@ dateLabel:
         if ( AuxiliaryMethods::checkDateIfCorrect(userInput) ) {
 
             dateInt = AuxiliaryMethods::fetchDigitsFromDate(userInput);
-            income.setIncomeDate(dateInt);
+            income.setIncomeDate( AuxiliaryMethods::convertIntToString(dateInt) );
 
             cout << "Enter name of item: ";
             userInput =  AuxiliaryMethods::readLine();
@@ -89,19 +89,17 @@ int AccountOperations::readActualDateAndConvertToInt() {
 
     Date date;
     string yearS = "", monthS = "", dayS = "", dateCollect = "";
-   // int year = 0;
-    //int month = 0;
-   // int day = 0;
+
     int dateInt = 0;
 
     date = AuxiliaryMethods::getSystemTime();
 
     yearS = date.getYear();
-    //yearS = AuxiliaryMethods::convertIntToString(year);
+
     monthS = date.getMonth();
-   // monthS = AuxiliaryMethods::convertIntToString(month);
+
     dayS = date.getDay();
-    //dayS = AuxiliaryMethods::convertIntToString(day);
+
     dateCollect = yearS + monthS + dayS;
 
     dateInt =  AuxiliaryMethods::transformStringToInt(dateCollect);
@@ -154,7 +152,10 @@ double AccountOperations::getActualMonthIncome() {
 
     for (int i = 0; i < incomes.size(); ++i) {
 
-        if ( ( incomes[i].getIncomeDate() > actualDateInt - AuxiliaryMethods::transformStringToInt( date.getDay() ) )&& ( incomes[i].getIncomeDate() <= actualDateInt + daysLeftInActualMonth ) ) {
+            string dateS = incomes[i].getIncomeDate();
+            int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
+
+        if ( ( dateXmlFile > actualDateInt - AuxiliaryMethods::transformStringToInt( date.getDay() ) )&& ( dateXmlFile <= actualDateInt + daysLeftInActualMonth ) ) {
 
             userIncomes += incomes[i].getIncomeAmount();
             incomesData.push_back(incomes[i]);
@@ -162,6 +163,7 @@ double AccountOperations::getActualMonthIncome() {
         }
 
     }
+
     return userIncomes;
 
 }
@@ -185,7 +187,10 @@ double AccountOperations::getActualMonthExpense() {
 
     for (int i = 0; i < expenses.size(); ++i) {
 
-        if ( ( expenses[i].getExpenseDate() > actualDateInt - AuxiliaryMethods::transformStringToInt( date.getDay() ) ) && ( expenses[i].getExpenseDate() <= actualDateInt + daysLeftInActualMonth ) ) {
+            string dateS = expenses[i].getExpenseDate();
+            int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
+
+        if ( ( dateXmlFile > actualDateInt - AuxiliaryMethods::transformStringToInt( date.getDay() ) ) && ( dateXmlFile <= actualDateInt + daysLeftInActualMonth ) ) {
 
             userExpenses += expenses[i].getExpenseAmount();
             expensesData.push_back(expenses[i]);
@@ -241,8 +246,10 @@ double AccountOperations::getPreviousMonthIncome() {
 
     for ( int k = 0; k < incomes.size(); ++k) {
 
+         string dateS = incomes[k].getIncomeDate();
+        int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
 
-        if ( incomes[k].getIncomeDate() > beginOfPreviousMonth && incomes[k].getIncomeDate() < endOfPreviousMonth ) {
+        if ( dateXmlFile > beginOfPreviousMonth && dateXmlFile < endOfPreviousMonth ) {
 
             previousMonthIncomes += incomes[k].getIncomeAmount();
             incomesData.push_back(incomes[k]);
@@ -278,8 +285,11 @@ double AccountOperations::getPreviousMonthExpense() {
 
     for ( int k = 0; k < expenses.size(); ++k) {
 
+            string dateS = expenses[k].getExpenseDate();
+            int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
 
-        if ( expenses[k].getExpenseDate() > beginOfPreviousMonth && expenses[k].getExpenseDate() < endOfPreviousMonth ) {
+
+        if ( dateXmlFile > beginOfPreviousMonth && dateXmlFile < endOfPreviousMonth ) {
 
             previousMonthExpenses += expenses[k].getExpenseAmount();
             expensesData.push_back(expenses[k]);
@@ -336,8 +346,8 @@ dateLabel:
         incomesAmount = getChoosenPeriodIncome(dateFromInt, dateToInt);
         expensesAmount = getChoosenPeriodExpense(dateFromInt, dateToInt);
 
-         AuxiliaryMethods::sortIncomesAndExpenses(incomesData,expensesData);
-         AuxiliaryMethods::displayBalance(incomesAmount, expensesAmount, 3);
+        AuxiliaryMethods::sortIncomesAndExpenses(incomesData,expensesData);
+        AuxiliaryMethods::displayBalance(incomesAmount, expensesAmount, 3);
 
     } else
         cout << "There is no incomes or expenses\n";
@@ -351,7 +361,10 @@ double AccountOperations::getChoosenPeriodIncome(int dateFrom, int dateTo) {
 
     for ( int j = 0; j < incomes.size(); ++j) {
 
-        if ( incomes[j].getIncomeDate() >= dateFrom && incomes[j].getIncomeDate() <= dateTo ) {
+        string dateS = incomes[j].getIncomeDate();
+        int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
+
+        if ( dateXmlFile >= dateFrom && dateXmlFile <= dateTo ) {
 
             periodIncome += incomes[j].getIncomeAmount();
             incomesData.push_back(incomes[j]);
@@ -371,7 +384,10 @@ double AccountOperations::getChoosenPeriodExpense(int dateFrom, int dateTo) {
 
     for ( int j = 0; j < expenses.size(); ++j) {
 
-        if ( expenses[j].getExpenseDate() >= dateFrom && expenses[j].getExpenseDate() <= dateTo ) {
+        string dateS = expenses[j].getExpenseDate();
+        int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
+
+        if ( dateXmlFile >= dateFrom && dateXmlFile <= dateTo ) {
 
             periodExpense += expenses[j].getExpenseAmount();
             expensesData.push_back(expenses[j]);
@@ -418,7 +434,7 @@ Expense AccountOperations::getExpenseData(int loggedUserId) {
     if ( sign == 'y' ) {
 
         dateInt = readActualDateAndConvertToInt();
-        expense.setExpenseDate(dateInt);
+        expense.setExpenseDate( AuxiliaryMethods::convertIntToString(dateInt) );
 
         cout << "Enter name of item: ";
         userInput =  AuxiliaryMethods::readLine();
@@ -441,7 +457,7 @@ dateLabel:
         if ( AuxiliaryMethods::checkDateIfCorrect(userInput) ) {
 
             dateInt = AuxiliaryMethods::fetchDigitsFromDate(userInput);
-            expense.setExpenseDate(dateInt);
+            expense.setExpenseDate( AuxiliaryMethods::convertIntToString(dateInt) );
 
             cout << "Enter name of item: ";
             userInput =  AuxiliaryMethods::readLine();

@@ -70,8 +70,7 @@ vector <Expense> ExpenseFile::readLoggedUserExpensesFromXmlFile() {
 
                 xmlExpenseFile.FindElem();
 
-                xmlInput = xmlExpenseFile.GetData();
-                expense.setExpenseDate( AuxiliaryMethods::transformStringToInt(xmlInput) );
+                expense.setExpenseDate( xmlExpenseFile.GetData() );
 
                 xmlExpenseFile.FindElem();
                 expense.setExpenseItem( xmlExpenseFile.GetData() );

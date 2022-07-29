@@ -11,22 +11,22 @@ class Expense{
 
     int expenseId;
     int expenseUserId;
-    int expenseDate;
+    string expenseDate;
     string expenseItem;
     double expenseAmount;
 
 public:
 
-    Expense(int expenseId = 0, int expenseUserId = 0, int expenseDate = 200011, string expenseItem = "Default name", double expenseAmount = 0.0) {}
+    Expense(int expenseId = 0, int expenseUserId = 0, string expenseDate = "200011", string expenseItem = "Default name", double expenseAmount = 0.0) {}
     int getExpenseId();
     int getExpenseUserId();
-    int getExpenseDate();
+    string getExpenseDate();
     string getExpenseItem();
     double getExpenseAmount();
 
     void setExpenseId(int expenseId);
     void setExpenseUserId(int expenseUserID);
-    void setExpenseDate(int expenseDate);
+    void setExpenseDate(string expenseDate);
     void setExpenseItem(string expenseItem);
     void setExpenseAmount(double expenseAmmount);
 };

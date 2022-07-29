@@ -11,7 +11,7 @@ int Expense::getExpenseUserId(){
     return this -> expenseUserId;
 }
 
-int Expense::getExpenseDate(){
+string Expense::getExpenseDate(){
 
     return this -> expenseDate;
 }
@@ -36,7 +36,7 @@ void Expense::setExpenseUserId(int expenseUserId){
     this -> expenseUserId = expenseUserId;
 }
 
-void Expense::setExpenseDate(int expenseDate){
+void Expense::setExpenseDate(string expenseDate){
 
     this -> expenseDate = expenseDate;
 }

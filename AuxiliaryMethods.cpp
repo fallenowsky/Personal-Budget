@@ -15,7 +15,7 @@ char AuxiliaryMethods::displayMainMenu() {
     cout << "9.Exit program\n\n";
     cout << "Your choice: ";
     choice = readLine();
-    //cin.get();
+
 
   if ( ifSignCorrect(choice) ){
             return choice[0];
@@ -46,10 +46,34 @@ char AuxiliaryMethods::displayUserMenu() {
 
 }
 
+bool AuxiliaryMethods::sortIncomesByDate(  Income &income1,  Income &income2 ){
+
+         return ( income1.getIncomeDate() > income2.getIncomeDate() );
+    }
+
+bool AuxiliaryMethods::sortExpensesByDate(  Expense &expense1,  Expense &expense2 ){
+
+         return ( expense1.getExpenseDate() > expense2.getExpenseDate() );
+    }
+
 void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <Expense> expenses){
 
-    vector <double> datesOfIncomes;
-    vector <double> datesOfExpenses;
+
+   sort(incomes.begin(), incomes.end(), sortIncomesByDate);
+   sort(expenses.begin(), expenses.end(), sortExpensesByDate);
+
+    separateDateOktets(incomes, expenses);
+    displaySortedIncomesAndExpenses(incomes, expenses);
+
+
+}
+
+
+
+     /*
+
+     vector <int> datesOfIncomes;
+    vector <int> datesOfExpenses;
 
     Income income;
     Expense expense;
@@ -66,15 +90,22 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
             else
                 loopRepeats = expensesCount;
 
-    for ( int i = 0; i < loopRepeats; ++i){
+    for ( int i = 0; i < incomesCount; ++i){
 
-           datesOfIncomes.push_back( incomes[i].getIncomeDate() ) ;
+            string dateS = incomes[i].getIncomeDate();
+            double date = AuxiliaryMethods::transformStringToInt(dateS);
+
+           datesOfIncomes.push_back( date );
 
 
     }
 
+
     for( int j = 0; j < expensesCount; ++j){
-        datesOfExpenses.push_back( expenses[j].getExpenseDate() );
+
+        string dateS = expenses[j].getExpenseDate();
+        double date = AuxiliaryMethods::transformStringToInt(dateS);
+        datesOfExpenses.push_back( date );
 
     }
 
@@ -85,7 +116,7 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
 
         for (int k = 0; k < incomesCount; ++k){
 
-            if ( datesOfIncomes[j] == incomes[k].getIncomeDate() ){
+            if ( datesOfIncomes[j] == AuxiliaryMethods::transformStringToInt( incomes[k].getIncomeDate() ) ){
 
                 income.setIncomeId( incomes[k].getIncomeId() );
                 income.setIncomeUserId( incomes[k].getIncomeUserId() );
@@ -101,7 +132,7 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
 
         for ( int l = 0; l < expensesCount; ++l){
 
-                if ( datesOfExpenses[j] ==  expenses[l].getExpenseDate() ){
+                if ( datesOfExpenses[j] == AuxiliaryMethods::transformStringToInt( expenses[l].getExpenseDate() ) ){
 
                     expense.setExpenseId( expenses[l].getExpenseId() );
                     expense.setExpenseUserId( expenses[l].getExpenseUserId() );
@@ -116,11 +147,9 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
 
     }
 
-    //separateDateOktets(incomesSorted, expensesSorted);
-    displaySortedIncomesAndExpenses(incomesSorted, expensesSorted);
+    */
 
 
-}
 
 void AuxiliaryMethods::separateDateOktets(vector <Income> &incomesSorted, vector <Expense> &expensesSorted){
 
@@ -130,19 +159,19 @@ void AuxiliaryMethods::separateDateOktets(vector <Income> &incomesSorted, vector
 
     for ( int i = 0; i < incomesCount; i++ ){
 
-        date = AuxiliaryMethods::convertIntToString( incomesSorted[i].getIncomeDate() ); //20220407 //2022-0407
+        date = incomesSorted[i].getIncomeDate(); //20220407 //2022-0407
         date.insert(4, "-");
         date.insert(7, "-");
-        incomesSorted[i].setIncomeDate( AuxiliaryMethods::transformStringToInt( date ) );
+        incomesSorted[i].setIncomeDate( date ) ;
 
     }
 
   for ( int i = 0; i < expensesCount; i++ ){
 
-        date = AuxiliaryMethods::convertIntToString( expensesSorted[i].getExpenseDate() ); //20220407 //2022-0407
+        date = expensesSorted[i].getExpenseDate() ; //20220407 //2022-0407
         date.insert(4, "-");
         date.insert(7, "-");
-        expensesSorted[i].setExpenseDate( AuxiliaryMethods::transformStringToInt( date ) );
+        expensesSorted[i].setExpenseDate( date ) ;
 
     }
 
@@ -150,7 +179,7 @@ void AuxiliaryMethods::separateDateOktets(vector <Income> &incomesSorted, vector
 
 }
 
-void AuxiliaryMethods::displaySortedIncomesAndExpenses(vector <Income> incomesSorted, vector <Expense> expensesSorted){
+void AuxiliaryMethods::displaySortedIncomesAndExpenses(vector <Income> &incomesSorted, vector <Expense> &expensesSorted){
 
     int incomesCount = incomesSorted.size();
     int expensesCount = expensesSorted.size();
@@ -504,28 +533,6 @@ int AuxiliaryMethods::fetchDigitsFromDate(string date) { //2022-07-17
         dateNumbers += date.substr(8,2);
 
     }
-    /*
-    if ( dateSigns == 9 && ( isdigit(date[7]) && isdigit(date[8]) ) ) {
-
-        dateNumbers = date.substr(0,4);
-        dateNumbers += date.substr(5,1);
-        dateNumbers += date.substr(7,2);
-
-    } else {
-
-        dateNumbers = date.substr(0,4);
-        dateNumbers += date.substr(5,2);
-        dateNumbers += date.substr(8,1);
-    }
-
-    if ( dateSigns == 8 ) {
-
-        dateNumbers = date.substr(0,4);
-        dateNumbers += date.substr(5,1);
-        dateNumbers += date.substr(7,1);
-
-    }
-    */
 
     dateInt = transformStringToInt(dateNumbers);
 

@@ -72,8 +72,7 @@ vector <Income> IncomeFile::readLoggedUserIncomesFromXmlFile() {
 
                 xmlIncomeFile.FindElem();
 
-                xmlInput = xmlIncomeFile.GetData();
-                income.setIncomeDate( AuxiliaryMethods::transformStringToInt(xmlInput) );
+                income.setIncomeDate( xmlIncomeFile.GetData() );
 
                 xmlIncomeFile.FindElem();
                 income.setIncomeItem( xmlIncomeFile.GetData() );
