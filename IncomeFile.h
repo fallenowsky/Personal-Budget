@@ -19,7 +19,7 @@ class IncomeFile : public XmlFiles{
 
 public:
 
-    IncomeFile(int _LOGGED_USER_ID_) : INCOME_FILE_NAME("incomeFile.xml"), LOGGED_USER_ID(_LOGGED_USER_ID_) {}
+    IncomeFile(int _LOGGED_USER_ID_, string INCOME_FILE_NAME_) : INCOME_FILE_NAME(INCOME_FILE_NAME_), LOGGED_USER_ID(_LOGGED_USER_ID_) {}
     void addLoggedUserIncomeToXmlFile(Income income);
 
     vector <Income> readLoggedUserIncomesFromXmlFile();

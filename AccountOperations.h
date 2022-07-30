@@ -32,7 +32,8 @@ class AccountOperations {
 
 public:
 
-    AccountOperations(int LOGGED_USER_ID) : incomeFile(LOGGED_USER_ID), expenseFile(LOGGED_USER_ID)  {
+    AccountOperations(int LOGGED_USER_ID, string INCOME_FILE_NAME)
+    : incomeFile(LOGGED_USER_ID,INCOME_FILE_NAME), expenseFile(LOGGED_USER_ID)  {
 
         incomes = incomeFile.readLoggedUserIncomesFromXmlFile();
         expenses = expenseFile.readLoggedUserExpensesFromXmlFile();

@@ -46,12 +46,12 @@ char AuxiliaryMethods::displayUserMenu() {
 
 }
 
-bool AuxiliaryMethods::sortIncomesByDate(  Income &income1,  Income &income2 ){
+bool AuxiliaryMethods::sortIncomesByDate( Income &income1,  Income &income2 ){
 
          return ( income1.getIncomeDate() > income2.getIncomeDate() );
     }
 
-bool AuxiliaryMethods::sortExpensesByDate(  Expense &expense1,  Expense &expense2 ){
+bool AuxiliaryMethods::sortExpensesByDate( Expense &expense1,  Expense &expense2 ){
 
          return ( expense1.getExpenseDate() > expense2.getExpenseDate() );
     }
@@ -64,7 +64,6 @@ void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <E
 
     separateDateOktets(incomes, expenses);
     displaySortedIncomesAndExpenses(incomes, expenses);
-
 
 }
 

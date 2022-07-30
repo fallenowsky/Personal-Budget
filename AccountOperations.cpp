@@ -152,8 +152,8 @@ double AccountOperations::getActualMonthIncome() {
 
     for (int i = 0; i < incomes.size(); ++i) {
 
-            string dateS = incomes[i].getIncomeDate();
-            int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
+        string dateS = incomes[i].getIncomeDate();
+        int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
 
         if ( ( dateXmlFile > actualDateInt - AuxiliaryMethods::transformStringToInt( date.getDay() ) )&& ( dateXmlFile <= actualDateInt + daysLeftInActualMonth ) ) {
 
@@ -187,8 +187,8 @@ double AccountOperations::getActualMonthExpense() {
 
     for (int i = 0; i < expenses.size(); ++i) {
 
-            string dateS = expenses[i].getExpenseDate();
-            int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
+        string dateS = expenses[i].getExpenseDate();
+        int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
 
         if ( ( dateXmlFile > actualDateInt - AuxiliaryMethods::transformStringToInt( date.getDay() ) ) && ( dateXmlFile <= actualDateInt + daysLeftInActualMonth ) ) {
 
@@ -217,10 +217,10 @@ void AccountOperations::displayPreviousMonthBalance() {
         AuxiliaryMethods::displayBalance(previousMonthIncome,previousMonthExpense,2);
 
 
-    } else
+    } else {
         cout << "There is no incomes or expenses\n";
-    system("pause");
-
+        system("pause");
+    }
 }
 
 double AccountOperations::getPreviousMonthIncome() {
@@ -246,7 +246,7 @@ double AccountOperations::getPreviousMonthIncome() {
 
     for ( int k = 0; k < incomes.size(); ++k) {
 
-         string dateS = incomes[k].getIncomeDate();
+        string dateS = incomes[k].getIncomeDate();
         int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
 
         if ( dateXmlFile > beginOfPreviousMonth && dateXmlFile < endOfPreviousMonth ) {
@@ -285,8 +285,8 @@ double AccountOperations::getPreviousMonthExpense() {
 
     for ( int k = 0; k < expenses.size(); ++k) {
 
-            string dateS = expenses[k].getExpenseDate();
-            int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
+        string dateS = expenses[k].getExpenseDate();
+        int dateXmlFile = AuxiliaryMethods::transformStringToInt(dateS);
 
 
         if ( dateXmlFile > beginOfPreviousMonth && dateXmlFile < endOfPreviousMonth ) {

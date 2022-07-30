@@ -21,6 +21,8 @@ void UserOperations::userRegister() {
 }
 int UserOperations::logInUser() {
 
+loginLabel:
+
     system("cls");
     cout << endl;
     cout << ">>>Log-In MENU<<< \n\n";
@@ -28,8 +30,10 @@ int UserOperations::logInUser() {
     string input;
     int usersCount = users.size();
     const int triesCount = 4;
+    bool userExists = false;
 
-loginLabel:
+
+
     cout << "\nEnter login: ";
     input = AuxiliaryMethods::readLine();
 
@@ -54,19 +58,25 @@ loginLabel:
                     continue;
             }
 
+            userExists = true;
             cout << endl;
             cout << "You don't have more chances!\n\n";
             system("pause");
             return 0;
 
-        } else {
-
-            cout << "There is no login like this! Try one more time! \n\n";
-            system("pause");
-            goto loginLabel;
-        }
+        } else
+            continue;
 
     }
+
+    if ( !userExists ){
+
+        cout << "There is no user like " << input <<". Try one more time!\n";
+        system("pause");
+        goto loginLabel;
+
+    }
+
 }
 User UserOperations::getUserData() {
 
