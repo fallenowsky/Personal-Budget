@@ -26,7 +26,7 @@ class AuxiliaryMethods {
     static void displaySortedIncomesAndExpenses(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
     static void separateDateOktets(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
     static bool sortIncomesByDate( Income &income1,  Income &income2 );
-    static bool sortExpensesByDate( Expense &income1,  Expense &income2 );
+    static bool sortExpensesByDate( Expense &income1, Expense &income2 );
 public:
     static char displayMainMenu();
     static string readLine();

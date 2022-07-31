@@ -36,7 +36,7 @@ Income AccountOperations::getIncomeData(int loggedUserId) {
     if ( sign == 'y' ) {
 
         dateInt = readActualDateAndConvertToInt();
-        income.setIncomeDate( AuxiliaryMethods::convertIntToString(dateInt));
+        income.setIncomeDate( AuxiliaryMethods::convertIntToString(dateInt) );
 
         cout << "Enter name of item: ";
         userInput =  AuxiliaryMethods::readLine();
