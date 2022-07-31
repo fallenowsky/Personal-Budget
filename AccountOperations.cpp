@@ -23,8 +23,6 @@ Income AccountOperations::getIncomeData(int loggedUserId) {
 
 
     income.setIncomeId( incomeFile.getLastIncomeId() + 1 );
-    cout << income.getIncomeId() << endl;
-    system("pause");
 
     income.setIncomeUserId(loggedUserId);
 
@@ -36,7 +34,7 @@ Income AccountOperations::getIncomeData(int loggedUserId) {
     if ( sign == 'y' ) {
 
         dateInt = readActualDateAndConvertToInt();
-        income.setIncomeDate( AuxiliaryMethods::convertIntToString(dateInt));
+        income.setIncomeDate( AuxiliaryMethods::convertIntToString(dateInt) );
 
         cout << "Enter name of item: ";
         userInput =  AuxiliaryMethods::readLine();
@@ -421,8 +419,6 @@ Expense AccountOperations::getExpenseData(int loggedUserId) {
 
 
     expense.setExpenseId( expenseFile.getLastExpenseId() + 1 );
-    cout << expense.getExpenseId() << endl;
-    system("pause");
 
     expense.setExpenseUserId(loggedUserId);
 

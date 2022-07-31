@@ -57,7 +57,7 @@ void UserMenedzer::displaySelectedPeriodBalance() {
 
 bool UserMenedzer::ifUsersEmpty() {
 
-    if ( users.empty() == 1)
+    if ( users.empty() == 1 )
         return true;
     else
         return false;
@@ -87,7 +87,7 @@ void UserMenedzer::changeUserPassword() {
 
 void UserMenedzer::logOutUser() {
 
-    char choice = {0};
+    choice = {0};
     loggedUserId = 0;
 
     delete accountOperations;

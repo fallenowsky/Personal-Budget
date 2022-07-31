@@ -51,7 +51,7 @@ bool AuxiliaryMethods::sortIncomesByDate( Income &income1,  Income &income2 ) {
     return ( income1.getIncomeDate() > income2.getIncomeDate() );
 }
 
-bool AuxiliaryMethods::sortExpensesByDate(  Expense &expense1,  Expense &expense2 ) {
+bool AuxiliaryMethods::sortExpensesByDate( Expense &expense1, Expense &expense2 ) {
 
     return ( expense1.getExpenseDate() > expense2.getExpenseDate() );
 }
@@ -99,14 +99,13 @@ void AuxiliaryMethods::displaySortedIncomesAndExpenses(vector <Income> &incomesS
 
     int incomesCount = incomesSorted.size();
     int expensesCount = expensesSorted.size();
-    int smaller = 0, counter = 0;
 
     for ( int i = 0; i < incomesCount; ++i ) {
 
         cout << "\nINCOME NR" << i+1 << " :" <<" \n\n";
         cout << "Income ID: " << incomesSorted[i].getIncomeId() << endl;
         cout << "Income User ID: " << incomesSorted[i].getIncomeUserId() << endl;
-        cout << "Income Date: " << incomesSorted[i].getIncomeDate() <<endl ;
+        cout << "Income Date: " << incomesSorted[i].getIncomeDate() << endl ;
         cout << "Income Item: " << incomesSorted[i].getIncomeItem() << endl;
         cout << "Income Amount: " << incomesSorted[i].getIncomeAmount() << endl;
 
@@ -116,10 +115,10 @@ void AuxiliaryMethods::displaySortedIncomesAndExpenses(vector <Income> &incomesS
 
         cout <<  "\t\t\tEXPENSE NR" << i+1 <<" :" <<" \n\n";
         cout <<  "\t\t\tExpense ID: " << expensesSorted[i].getExpenseId() << endl;
-        cout << "\t\t\tExpense User ID: " << expensesSorted[i].getExpenseUserId() <<endl;
-        cout <<  "\t\t\tExpense Date: " << expensesSorted[i].getExpenseDate() <<endl;
-        cout <<  "\t\t\tExpense Item: " << expensesSorted[i].getExpenseItem() <<endl;
-        cout << "\t\t\tExpense Amount: " << expensesSorted[i].getExpenseAmount() <<endl << endl;
+        cout << "\t\t\tExpense User ID: " << expensesSorted[i].getExpenseUserId() << endl;
+        cout <<  "\t\t\tExpense Date: " << expensesSorted[i].getExpenseDate() << endl;
+        cout <<  "\t\t\tExpense Item: " << expensesSorted[i].getExpenseItem() << endl;
+        cout << "\t\t\tExpense Amount: " << expensesSorted[i].getExpenseAmount() << endl << endl;
     }
 
 
@@ -139,7 +138,7 @@ void AuxiliaryMethods::displayBalance(double incomes, double expenses, int which
 
     cout <<"Your incomes from" << balanceType << "are equals to " << incomes;
     cout <<"\t Your expenses from" << balanceType << "are equals to " << expenses << endl;
-    cout << "\nYour balance from" << balanceType <<": " << incomes - expenses << endl;
+    cout << "\n\t\t\tYour balance from" << balanceType <<": " << incomes - expenses << " PLN" << endl << endl ;
 
     system("pause");
 
@@ -197,7 +196,7 @@ string AuxiliaryMethods::convertIntToString(int number) {
 
 bool AuxiliaryMethods::checkInputDataValidity(string userData) {
 
-    if ( userData.length() > 3 )
+    if ( userData.length()  > 3 )
         return true;
     else
         return false;
@@ -222,7 +221,7 @@ label:
 
         for ( int i = 0; i < signsAmmount; ++i) {
 
-            if( i == 0) {
+            if ( i == 0) {
 
                 if ( (userData[i] >= 97 && userData[i] <= 122) )
                     userData[i] -= 32;
