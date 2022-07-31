@@ -69,7 +69,7 @@ loginLabel:
 
     }
 
-    if ( !userExists ){
+    if ( !userExists ) {
 
         cout << "There is no user like " << input <<". Try one more time!\n";
         system("pause");
@@ -185,12 +185,12 @@ bool UserOperations::changeUserPassword(const int LOGGED_USER_ID) {
         }
     }
 
-if ( !controlBit ) {
+    if ( !controlBit ) {
 
-    cout << "User not found! \n";
-    system("pause");
+        cout << "User not found! \n";
+        system("pause");
 
-}
+    }
 
 }
 

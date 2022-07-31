@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class User{
+class User {
 
     int userId;
     string userLogin;
@@ -17,7 +17,7 @@ class User{
 
 public:
 
-   User( int userId = 0, string userLogin = "Default", string userPassword = "Default", string userName = "Default",  string userSurname = "Default" ) { }
+    User( int userId = 0, string userLogin = "Default", string userPassword = "Default", string userName = "Default",  string userSurname = "Default" ) { }
 
     int getUserId();
     string getUserLogin();

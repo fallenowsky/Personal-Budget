@@ -35,7 +35,6 @@ vector <Income> IncomeFile::readLoggedUserIncomesFromXmlFile() {
     int idUserXml = 0;
 
     bool ifIncomeFileExists = xmlIncomeFile.Load(INCOME_FILE_NAME );
-    //"C:\\Programming\\Repos\\projektFinanse\\personalBudget\\"
 
 
     if ( ifIncomeFileExists ) {
@@ -126,7 +125,7 @@ int IncomeFile::getLastIncomeId() {
 
     }
 
-     xmlIncomeFile.Save( INCOME_FILE_NAME );
+    xmlIncomeFile.Save( INCOME_FILE_NAME );
 
     return xmlIncomeIdInt;
 }

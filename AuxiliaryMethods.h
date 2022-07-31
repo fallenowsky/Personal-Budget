@@ -18,15 +18,15 @@ using namespace std;
 
 class AuxiliaryMethods {
 
-     static void eraseZerosIfExists(string &date);
-     static bool ifDateFormatCorrect(string date);
-     static bool ifYearMonthDayCorrect(string date);
-     static bool ifLeapYear();
-     static bool ifSignCorrect(string choice);
-     static void displaySortedIncomesAndExpenses(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
-     static void separateDateOktets(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
-     static bool sortIncomesByDate( Income &income1,  Income &income2 );
-     static bool sortExpensesByDate( Expense &income1,  Expense &income2 );
+    static void eraseZerosIfExists(string &date);
+    static bool ifDateFormatCorrect(string date);
+    static bool ifYearMonthDayCorrect(string date);
+    static bool ifLeapYear();
+    static bool ifSignCorrect(string choice);
+    static void displaySortedIncomesAndExpenses(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
+    static void separateDateOktets(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
+    static bool sortIncomesByDate( Income &income1,  Income &income2 );
+    static bool sortExpensesByDate( Expense &income1,  Expense &income2 );
 public:
     static char displayMainMenu();
     static string readLine();

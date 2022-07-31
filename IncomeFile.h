@@ -10,12 +10,12 @@
 
 
 
-class IncomeFile : public XmlFiles{
+class IncomeFile : public XmlFiles {
 
-   CMarkup xmlIncomeFile;
+    CMarkup xmlIncomeFile;
 
-   const string INCOME_FILE_NAME;
-   const int LOGGED_USER_ID;
+    const string INCOME_FILE_NAME;
+    const int LOGGED_USER_ID;
 
 public:
 

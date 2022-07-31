@@ -12,18 +12,18 @@ void UserMenedzer::userRegister() {
 
 void UserMenedzer::logInUser() {
 
-if ( !ifUsersEmpty() ){
-    loggedUserId = userOperations.logInUser();
+    if ( !ifUsersEmpty() ) {
+        loggedUserId = userOperations.logInUser();
 
-    if ( loggedUserId > 0 ){
-        accountOperations = new AccountOperations(loggedUserId,INCOME_FILE_NAME);
-        choice = AuxiliaryMethods::displayUserMenu();
-        callCorrespondingFunctionUserMenu();
-    }
+        if ( loggedUserId > 0 ) {
+            accountOperations = new AccountOperations(loggedUserId,INCOME_FILE_NAME, EXPENSE_FILE_NAME);
+            choice = AuxiliaryMethods::displayUserMenu();
+            callCorrespondingFunctionUserMenu();
+        }
 
-}else {
+    } else {
 
-cout << "\nFile with users is empty. Register a new user first! \n\n";
+        cout << "\nFile with users is empty. Register a new user first! \n\n";
         system("pause");
         userRegister();
 
@@ -31,7 +31,7 @@ cout << "\nFile with users is empty. Register a new user first! \n\n";
 
 }
 
-void UserMenedzer::displayActualMonthBalance(){
+void UserMenedzer::displayActualMonthBalance() {
 
     accountOperations -> displayActualMonthBalance();
     choice = AuxiliaryMethods::displayUserMenu();
@@ -39,7 +39,7 @@ void UserMenedzer::displayActualMonthBalance(){
 
 }
 
-void UserMenedzer::displayPreviousMonthBalance(){
+void UserMenedzer::displayPreviousMonthBalance() {
 
     accountOperations -> displayPreviousMonthBalance();
     choice = AuxiliaryMethods::displayUserMenu();
@@ -47,7 +47,7 @@ void UserMenedzer::displayPreviousMonthBalance(){
 
 }
 
-void UserMenedzer::displaySelectedPeriodBalance(){
+void UserMenedzer::displaySelectedPeriodBalance() {
 
     accountOperations -> displayChoosenPeriodBalance();
     choice = AuxiliaryMethods::displayUserMenu();
@@ -64,28 +64,28 @@ bool UserMenedzer::ifUsersEmpty() {
 
 }
 
-void UserMenedzer::addIncome(){
+void UserMenedzer::addIncome() {
 
     accountOperations -> addIncome(loggedUserId);
     choice = AuxiliaryMethods::displayUserMenu();
     callCorrespondingFunctionUserMenu();
 }
 
-void UserMenedzer::addExpense(){
+void UserMenedzer::addExpense() {
 
     accountOperations -> addExpense(loggedUserId);
     choice = AuxiliaryMethods::displayUserMenu();
     callCorrespondingFunctionUserMenu();
 }
 
-void UserMenedzer::changeUserPassword(){
+void UserMenedzer::changeUserPassword() {
 
     userOperations.changeUserPassword(loggedUserId);
     choice = AuxiliaryMethods::displayUserMenu();
     callCorrespondingFunctionUserMenu();
 }
 
-void UserMenedzer::logOutUser(){
+void UserMenedzer::logOutUser() {
 
     char choice = {0};
     loggedUserId = 0;
@@ -96,33 +96,33 @@ void UserMenedzer::logOutUser(){
     callCorresspondingFunctionMainMenu();
 
 }
-void UserMenedzer::callCorrespondingFunctionUserMenu(){
+void UserMenedzer::callCorrespondingFunctionUserMenu() {
 
-        switch(choice){
+    switch(choice) {
 
     case '1':
-            addIncome();
-            break;
+        addIncome();
+        break;
     case '2':
-            addExpense();
-            break;
+        addExpense();
+        break;
     case '3':
-            displayActualMonthBalance();
-            break;
+        displayActualMonthBalance();
+        break;
     case '4':
-            displayPreviousMonthBalance();
-            break;
+        displayPreviousMonthBalance();
+        break;
     case '5':
-            displaySelectedPeriodBalance();
-            break;
+        displaySelectedPeriodBalance();
+        break;
     case '6':
-            changeUserPassword();
-            break;
+        changeUserPassword();
+        break;
     case '7':
-            logOutUser();
-            break;
+        logOutUser();
+        break;
 
-        }
+    }
 
 
 }

@@ -127,12 +127,8 @@ bool UserFile::ifLoginFree(string userLogin) {
 
 void UserFile::replacePasswordInXmlFile(int userId, string oldPassword, string newPassword) {
 
-/*
-    bool ifUserFileExists = xmlUserFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME);
 
-    if ( ifUserFileExists ) {
-
-        xmlUserFile.ResetPos();
+    if (xmlUserFile.Load( USER_FILE_NAME ) ) {
         xmlUserFile.FindElem();
         xmlUserFile.IntoElem();
 
@@ -141,39 +137,7 @@ void UserFile::replacePasswordInXmlFile(int userId, string oldPassword, string n
             xmlUserFile.IntoElem();
             xmlUserFile.FindElem("UserId");
 
-
-            if ( userId == AuxiliaryMethods::transformStringToInt( xmlUserFile.GetData() ) ) {
-
-                 xmlUserFile.FindElem("UserPassword");
-
-                if ( oldPassword == xmlUserFile.GetData() ) {
-
-                    xmlUserFile.SetData( newPassword );
-                    xmlUserFile.Save( " C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME );
-                    return;
-
-                }
-
-
-            }
-            xmlUserFile.OutOfElem();
-        }
-
-    }
-    xmlUserFile.Save( " C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME );
-
-    */
-
-    if (xmlUserFile.Load( USER_FILE_NAME ) ){
-        xmlUserFile.FindElem();
-        xmlUserFile.IntoElem();
-
-        while ( xmlUserFile.FindElem("User") ){
-
-            xmlUserFile.IntoElem();
-            xmlUserFile.FindElem("UserId");
-
-            if ( xmlUserFile.GetData() == AuxiliaryMethods::convertIntToString(userId) ){
+            if ( xmlUserFile.GetData() == AuxiliaryMethods::convertIntToString(userId) ) {
 
                 xmlUserFile.FindElem("UserPassword");
                 xmlUserFile.SetData(newPassword);

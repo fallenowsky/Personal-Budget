@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Date{
+class Date {
 
     string year;
     string month;
@@ -13,14 +13,14 @@ class Date{
 
 public:
 
-Date ( string year  = "2022", string month = "01", string day = "01" ){ }
-string getYear();
-string getMonth();
-string getDay();
+    Date ( string year  = "2022", string month = "01", string day = "01" ) { }
+    string getYear();
+    string getMonth();
+    string getDay();
 
-void setYear(string year);
-void setMonth(string month);
-void setDay(string day);
+    void setYear(string year);
+    void setMonth(string month);
+    void setDay(string day);
 
 
 

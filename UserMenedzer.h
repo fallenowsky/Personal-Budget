@@ -13,6 +13,7 @@ class UserMenedzer {
     AccountOperations *accountOperations;
     vector <User> users;
     const string INCOME_FILE_NAME;
+    const string EXPENSE_FILE_NAME;
     int loggedUserId;
     char choice;
 
@@ -27,18 +28,18 @@ class UserMenedzer {
 
 public:
 
-    UserMenedzer(string userFileName, string _INCOME_FILE_NAME_)
+    UserMenedzer(string USER_FILE_NAME, string _INCOME_FILE_NAME_, string _EXPENSE_FILE_NAME_)
 
-        : userOperations(userFileName), INCOME_FILE_NAME(_INCOME_FILE_NAME_) {
+        : userOperations(USER_FILE_NAME), INCOME_FILE_NAME(_INCOME_FILE_NAME_), EXPENSE_FILE_NAME(_EXPENSE_FILE_NAME_ ) {
         users = userOperations.readUsersFromXmlFile();
         loggedUserId = 0;
         accountOperations = NULL;
         choice = AuxiliaryMethods::displayMainMenu();
         callCorresspondingFunctionMainMenu();
 
-
     }
-    ~UserMenedzer(){
+
+    ~UserMenedzer() {
 
         delete accountOperations;
         accountOperations = NULL;

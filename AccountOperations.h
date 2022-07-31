@@ -1,7 +1,6 @@
 #ifndef _ACCOUNTOPERATIONS_H
 #define _ACCOUNTOPERATIONS_H
 
-
 #include "Income.h"
 #include "Expense.h"
 #include "IncomeFile.h"
@@ -32,8 +31,8 @@ class AccountOperations {
 
 public:
 
-    AccountOperations(int LOGGED_USER_ID, string INCOME_FILE_NAME)
-    : incomeFile(LOGGED_USER_ID,INCOME_FILE_NAME), expenseFile(LOGGED_USER_ID)  {
+    AccountOperations(int LOGGED_USER_ID, string INCOME_FILE_NAME, string EXPENSE_FILE_NAME)
+        : incomeFile(LOGGED_USER_ID,INCOME_FILE_NAME), expenseFile(LOGGED_USER_ID, EXPENSE_FILE_NAME)  {
 
         incomes = incomeFile.readLoggedUserIncomesFromXmlFile();
         expenses = expenseFile.readLoggedUserExpensesFromXmlFile();
