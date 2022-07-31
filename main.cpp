@@ -10,7 +10,7 @@ using namespace std;
 int main() {
 
 
-        PersonalBudget personalBudget("usersXmlFile.xml", "incomeFile.xml", "expenseFile.xml");
+        PersonalBudget personalBudget("usersXmlFile.xml", "incomeXmlFile.xml", "expenseXmlFile.xml");
 
 return 0;
 

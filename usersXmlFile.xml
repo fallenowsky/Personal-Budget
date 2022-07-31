@@ -9,15 +9,8 @@
 <User>
 <UserId>2</UserId>
 <UserLogin>xerien</UserLogin>
-<UserPassword>pala</UserPassword>
+<UserPassword>dupa</UserPassword>
 <UserName>Mateusz</UserName>
 <UserSurname>Cabaj</UserSurname>
-</User>
-<User>
-<UserId>3</UserId>
-<UserLogin>dziki</UserLogin>
-<UserPassword>dzik</UserPassword>
-<UserName>Szymon</UserName>
-<UserSurname>Broda</UserSurname>
 </User>
 </Users>
