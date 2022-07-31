@@ -4,8 +4,12 @@
 #include <iostream>
 #include <sstream>
 #include <time.h>
+#include <vector>
+#include <algorithm>
 
 #include "Date.h"
+#include "Income.h"
+#include "Expense.h"
 
 using namespace std;
 
@@ -14,12 +18,15 @@ using namespace std;
 
 class AuxiliaryMethods {
 
-     static void eraseZerosIfExists(string &date);
-     static bool ifDateFormatCorrect(string date);
-     static bool ifYearMonthDayCorrect(string date);
-     static bool ifLeapYear();
-
-
+    static void eraseZerosIfExists(string &date);
+    static bool ifDateFormatCorrect(string date);
+    static bool ifYearMonthDayCorrect(string date);
+    static bool ifLeapYear();
+    static bool ifSignCorrect(string choice);
+    static void displaySortedIncomesAndExpenses(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
+    static void separateDateOktets(vector <Income> &incomesSorted, vector <Expense> &expensesSorted);
+    static bool sortIncomesByDate( Income &income1,  Income &income2 );
+    static bool sortExpensesByDate( Expense &income1,  Expense &income2 );
 public:
     static char displayMainMenu();
     static string readLine();
@@ -33,6 +40,8 @@ public:
     static int fetchDigitsFromDate(string date);
     static string convertIntToString(int number);
     static int howManyDaysInMonth(int monthNumber);
+    static void sortIncomesAndExpenses(vector <Income> incomes, vector <Expense> expenses);
+    static void displayBalance(double incomes, double expenses, int whichBalance);
 
 
 

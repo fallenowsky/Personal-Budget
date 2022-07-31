@@ -11,16 +11,18 @@ using namespace std;
 
 class UserOperations {
 
-    //XmlFile xmlfile;
-    User getUserData();
+
     UserFile userFile;
     vector <User> users;
+
+    User getUserData();
 
 public:
     UserOperations(string userFileName) : userFile(userFileName) { };
     void userRegister();
     vector <User> readUsersFromXmlFile();
     int logInUser();
+    bool changeUserPassword(const int LOGGED_USER_ID);
 
 
 

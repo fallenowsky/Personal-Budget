@@ -2,32 +2,32 @@
 
 
 
-int Date::getYear(){
+string Date::getYear() {
 
     return this -> year;
 }
 
-int Date::getMonth(){
+string Date::getMonth() {
 
     return this -> month;
 }
 
-int Date::getDay(){
+string Date::getDay() {
 
     return this -> day;
 }
 
-void Date::setYear(int year){
+void Date::setYear(string year) {
 
     this -> year = year;
 }
 
-void Date::setMonth(int month){
+void Date::setMonth(string month) {
 
     this -> month = month;
 }
 
-void Date::setDay(int day){
+void Date::setDay(string day) {
 
     this -> day = day;
 }

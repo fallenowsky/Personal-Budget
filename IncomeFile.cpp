@@ -5,7 +5,7 @@
 void IncomeFile::addLoggedUserIncomeToXmlFile(Income income) {
 
 
-    bool ifIncomeFileExists = xmlIncomeFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + INCOME_FILE_NAME );
+    bool ifIncomeFileExists = xmlIncomeFile.Load( INCOME_FILE_NAME );
 
     if ( !ifIncomeFileExists )
         xmlIncomeFile.AddElem("Incomes");
@@ -21,7 +21,7 @@ void IncomeFile::addLoggedUserIncomeToXmlFile(Income income) {
     xmlIncomeFile.AddElem( "IncomeAmount",to_string( income.getIncomeAmount() ) );
 
 
-    xmlIncomeFile.Save( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + INCOME_FILE_NAME );
+    xmlIncomeFile.Save( INCOME_FILE_NAME );
 
 }
 
@@ -34,7 +34,7 @@ vector <Income> IncomeFile::readLoggedUserIncomesFromXmlFile() {
     string xmlInput = "";
     int idUserXml = 0;
 
-    bool ifIncomeFileExists = xmlIncomeFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + INCOME_FILE_NAME );
+    bool ifIncomeFileExists = xmlIncomeFile.Load(INCOME_FILE_NAME );
 
 
     if ( ifIncomeFileExists ) {
@@ -72,8 +72,7 @@ vector <Income> IncomeFile::readLoggedUserIncomesFromXmlFile() {
 
                 xmlIncomeFile.FindElem();
 
-                xmlInput = xmlIncomeFile.GetData();
-                income.setIncomeDate( AuxiliaryMethods::transformStringToInt(xmlInput) );
+                income.setIncomeDate( xmlIncomeFile.GetData() );
 
                 xmlIncomeFile.FindElem();
                 income.setIncomeItem( xmlIncomeFile.GetData() );
@@ -91,7 +90,7 @@ vector <Income> IncomeFile::readLoggedUserIncomesFromXmlFile() {
             xmlIncomeFile.OutOfElem();
         }
 
-        xmlIncomeFile.Save( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + INCOME_FILE_NAME );
+        xmlIncomeFile.Save( INCOME_FILE_NAME );
 
     }
 
@@ -102,7 +101,7 @@ vector <Income> IncomeFile::readLoggedUserIncomesFromXmlFile() {
 int IncomeFile::getLastIncomeId() {
 
 
-    bool ifIncomeFileExists = xmlIncomeFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + INCOME_FILE_NAME );
+    bool ifIncomeFileExists = xmlIncomeFile.Load( INCOME_FILE_NAME );
 
     string xmlIncomeId = "";
     int xmlIncomeIdInt = 0;
@@ -125,6 +124,8 @@ int IncomeFile::getLastIncomeId() {
         }
 
     }
+
+    xmlIncomeFile.Save( INCOME_FILE_NAME );
 
     return xmlIncomeIdInt;
 }

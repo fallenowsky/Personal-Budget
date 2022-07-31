@@ -4,7 +4,7 @@
 
 char AuxiliaryMethods::displayMainMenu() {
 
-    char choice = {};
+    string choice = "";
 
     system("cls");
 
@@ -12,35 +12,159 @@ char AuxiliaryMethods::displayMainMenu() {
     cout << ">>>Main MENU<<< \n";
     cout << "1.User register\n";
     cout << "2.Log-in user\n";
-    cout << "3.Display all registered users\n";
     cout << "9.Exit program\n\n";
     cout << "Your choice: ";
-    cin >> choice;
-    cin.get();
+    choice = readLine();
 
-    return choice;
+
+    if ( ifSignCorrect(choice) ) {
+        return choice[0];
+    }
+
+
 }
 
 char AuxiliaryMethods::displayUserMenu() {
 
     char choice = {};
 
+    system("cls");
     cout << endl;
     cout << "1. Add income\n";
     cout << "2. Add expense\n";
     cout << "3. Display actual month balance\n";
     cout << "4. Display previous month balance\n";
     cout << "5. Display selected period balance\n";
-    cout << "6. Change password\n";
+    cout << "6. Change user password\n";
     cout << "7. Log-out user\n\n";
     cout << "Your choice: ";
     cin >> choice;
     cin.get();
 
+
     return choice;
 
 }
 
+bool AuxiliaryMethods::sortIncomesByDate( Income &income1,  Income &income2 ) {
+
+    return ( income1.getIncomeDate() > income2.getIncomeDate() );
+}
+
+bool AuxiliaryMethods::sortExpensesByDate(  Expense &expense1,  Expense &expense2 ) {
+
+    return ( expense1.getExpenseDate() > expense2.getExpenseDate() );
+}
+
+void AuxiliaryMethods::sortIncomesAndExpenses(vector <Income> incomes, vector <Expense> expenses) {
+
+
+    sort(incomes.begin(), incomes.end(), sortIncomesByDate);
+    sort(expenses.begin(), expenses.end(), sortExpensesByDate);
+
+    separateDateOktets(incomes, expenses);
+    displaySortedIncomesAndExpenses(incomes, expenses);
+
+}
+
+void AuxiliaryMethods::separateDateOktets(vector <Income> &incomesSorted, vector <Expense> &expensesSorted) {
+
+    string date = "";
+    int incomesCount = incomesSorted.size();
+    int expensesCount = expensesSorted.size();
+
+    for ( int i = 0; i < incomesCount; i++ ) {
+
+        date = incomesSorted[i].getIncomeDate(); //20220407 //2022-0407
+        date.insert(4, "-");
+        date.insert(7, "-");
+        incomesSorted[i].setIncomeDate( date ) ;
+
+    }
+
+    for ( int i = 0; i < expensesCount; i++ ) {
+
+        date = expensesSorted[i].getExpenseDate() ; //20220407 //2022-0407
+        date.insert(4, "-");
+        date.insert(7, "-");
+        expensesSorted[i].setExpenseDate( date ) ;
+
+    }
+
+
+
+}
+
+void AuxiliaryMethods::displaySortedIncomesAndExpenses(vector <Income> &incomesSorted, vector <Expense> &expensesSorted) {
+
+    int incomesCount = incomesSorted.size();
+    int expensesCount = expensesSorted.size();
+    int smaller = 0, counter = 0;
+
+    for ( int i = 0; i < incomesCount; ++i ) {
+
+        cout << "\nINCOME NR" << i+1 << " :" <<" \n\n";
+        cout << "Income ID: " << incomesSorted[i].getIncomeId() << endl;
+        cout << "Income User ID: " << incomesSorted[i].getIncomeUserId() << endl;
+        cout << "Income Date: " << incomesSorted[i].getIncomeDate() <<endl ;
+        cout << "Income Item: " << incomesSorted[i].getIncomeItem() << endl;
+        cout << "Income Amount: " << incomesSorted[i].getIncomeAmount() << endl;
+
+    }
+
+    for ( int i = 0; i < expensesCount; ++i) {
+
+        cout <<  "\t\t\tEXPENSE NR" << i+1 <<" :" <<" \n\n";
+        cout <<  "\t\t\tExpense ID: " << expensesSorted[i].getExpenseId() << endl;
+        cout << "\t\t\tExpense User ID: " << expensesSorted[i].getExpenseUserId() <<endl;
+        cout <<  "\t\t\tExpense Date: " << expensesSorted[i].getExpenseDate() <<endl;
+        cout <<  "\t\t\tExpense Item: " << expensesSorted[i].getExpenseItem() <<endl;
+        cout << "\t\t\tExpense Amount: " << expensesSorted[i].getExpenseAmount() <<endl << endl;
+    }
+
+
+}
+
+
+void AuxiliaryMethods::displayBalance(double incomes, double expenses, int whichBalance) {
+
+    string balanceType = "";
+
+    if ( whichBalance == 1 )
+        balanceType = " actual month ";
+    else if ( whichBalance == 2)
+        balanceType = " previous month ";
+    else
+        balanceType = " choosen period of time ";
+
+    cout <<"Your incomes from" << balanceType << "are equals to " << incomes;
+    cout <<"\t Your expenses from" << balanceType << "are equals to " << expenses << endl;
+    cout << "\nYour balance from" << balanceType <<": " << incomes - expenses << endl;
+
+    system("pause");
+
+
+}
+
+
+
+bool AuxiliaryMethods::ifSignCorrect(string choice) {
+
+    int dataLength = choice.size();
+
+    while ( true ) {
+
+        if ( dataLength > 1) {
+            cout << "It's not a single sign! Try one more time: ";
+            choice = readLine();
+            dataLength = choice.length();
+            continue;
+        } else
+            return true;
+
+    }
+
+}
 
 string AuxiliaryMethods::readLine() {
 
@@ -128,15 +252,33 @@ label:
 Date AuxiliaryMethods::getSystemTime() {
 
     Date date;
+    int day = 0, month = 0, year = 0;
+    string dayS = "0", monthS = "0", yearS = "";
 
     time_t timeT;
     time( & timeT );
     struct tm * st_time;
     st_time = localtime( & timeT );
 
-    date.setDay( st_time -> tm_mday );
-    date.setMonth( st_time -> tm_mon + 1);
-    date.setYear( st_time -> tm_year + 1900 );
+    day = st_time -> tm_mday;
+    month = st_time -> tm_mon + 1;
+
+    if ( day < 10 ) {
+        dayS += convertIntToString(day);
+    } else
+        dayS = convertIntToString(day);
+    if ( month < 10) {
+        monthS += convertIntToString(month);
+    } else
+        monthS = convertIntToString(month);
+
+
+    year = st_time -> tm_year + 1900;
+    yearS = convertIntToString(year);
+
+    date.setDay( dayS );
+    date.setMonth( monthS );
+    date.setYear( yearS );
 
     return date;
 
@@ -156,7 +298,6 @@ bool AuxiliaryMethods::checkDateIfCorrect(string &date) {
 
     bool dateFormat = ifDateFormatCorrect(date);
     bool yearDateMonth = ifYearMonthDayCorrect(date);
-    eraseZerosIfExists(date);
 
     if ( dateFormat && yearDateMonth )
         return true;
@@ -227,23 +368,23 @@ bool AuxiliaryMethods::ifYearMonthDayCorrect(string date) {
 
     systemDate = getSystemTime();
 
-    if ( (year >= 2000) && (year <=  systemDate.getYear() ) )
+    if ( (year >= 2000) && (year <= AuxiliaryMethods::transformStringToInt( systemDate.getYear() ) ) )
         yearIsOk = true;
 
 
     numbersFromDateString = date.substr(5,2);
     month = transformStringToInt(numbersFromDateString);
 
-    if ( year < systemDate.getYear() ) {
+    if ( year < AuxiliaryMethods::transformStringToInt( systemDate.getYear() ) ) {
 
         if  ( ( month >= 1 && month <= 12) )
             monthIsOk = true;
 
     }
 
-    else if ( year == systemDate.getYear() ) {
+    else if ( year == AuxiliaryMethods::transformStringToInt( systemDate.getYear() ) ) {
 
-        if (  month > 0 && month <= systemDate.getMonth())
+        if (  month > 0 && month <= AuxiliaryMethods::transformStringToInt( systemDate.getMonth() ) )
             monthIsOk = true;
     } else
         monthIsOk = false;
@@ -305,26 +446,6 @@ int AuxiliaryMethods::fetchDigitsFromDate(string date) { //2022-07-17
         dateNumbers += date.substr(8,2);
 
     }
-    if ( dateSigns == 9 && ( isdigit(date[7]) && isdigit(date[8]) ) ) {
-
-        dateNumbers = date.substr(0,4);
-        dateNumbers += date.substr(5,1);
-        dateNumbers += date.substr(7,2);
-
-    } else {
-
-        dateNumbers = date.substr(0,4);
-        dateNumbers += date.substr(5,2);
-        dateNumbers += date.substr(8,1);
-    }
-
-    if ( dateSigns == 8 ) {
-
-        dateNumbers = date.substr(0,4);
-        dateNumbers += date.substr(5,1);
-        dateNumbers += date.substr(7,1);
-
-    }
 
     dateInt = transformStringToInt(dateNumbers);
 
@@ -338,7 +459,7 @@ bool AuxiliaryMethods::ifLeapYear() {
 
     date = getSystemTime();
 
-    int year = date.getYear();
+    int year = AuxiliaryMethods::transformStringToInt( date.getYear() );
 
     if ( (year % 4 == 0  &&  year % 100 != 0) || (year % 400 == 0) )
         return 1;

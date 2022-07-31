@@ -1,52 +1,52 @@
 #include "Income.h"
 
 
-int Income::getIncomeId(){
+int Income::getIncomeId() {
 
     return this -> incomeId;
 }
 
-int Income::getIncomeUserId(){
+int Income::getIncomeUserId() {
 
     return this -> incomeUserId;
 }
 
-int Income::getIncomeDate(){
+string Income::getIncomeDate() {
 
     return this -> incomeDate;
 }
 
-string Income::getIncomeItem(){
+string Income::getIncomeItem() {
 
     return this -> incomeItem;
 }
 
-double Income::getIncomeAmount(){
+double Income::getIncomeAmount() {
 
     return this -> incomeAmount;
 }
 
-void Income::setIncomeId(int incomeId){
+void Income::setIncomeId(int incomeId) {
 
     this -> incomeId = incomeId;
 }
 
-void Income::setIncomeUserId(int incomeUserId){
+void Income::setIncomeUserId(int incomeUserId) {
 
     this -> incomeUserId = incomeUserId;
 }
 
-void Income::setIncomeDate(int incomeDate){
+void Income::setIncomeDate(string incomeDate) {
 
     this -> incomeDate = incomeDate;
 }
 
-void Income::setIncomeItem(string incomeItem){
+void Income::setIncomeItem(string incomeItem) {
 
     this -> incomeItem = incomeItem;
 }
 
-void Income::setIncomeAmount(double incomeAmount){
+void Income::setIncomeAmount(double incomeAmount) {
 
     this -> incomeAmount = incomeAmount;
 }

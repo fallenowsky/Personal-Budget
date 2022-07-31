@@ -5,7 +5,7 @@ bool UserFile::addUserToXmlFile(User user) {
 
     bool userCorrectlyAdded;
 
-    bool ifUserFileExists = xmlUserFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME );
+    bool ifUserFileExists = xmlUserFile.Load( USER_FILE_NAME );
 
     if ( !ifUserFileExists )
         xmlUserFile.AddElem("Users");
@@ -20,7 +20,7 @@ bool UserFile::addUserToXmlFile(User user) {
     xmlUserFile.AddElem( "UserName", user.getUserName() );
     xmlUserFile.AddElem( "UserSurname", user.getUserSurname() );
 
-    userCorrectlyAdded = xmlUserFile.Save( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME );
+    userCorrectlyAdded = xmlUserFile.Save( USER_FILE_NAME );
 
 
     return userCorrectlyAdded;
@@ -32,7 +32,7 @@ vector <User> UserFile::readUsersFromXmlFile() {
 
     string userIdString;
 
-    bool ifUserFileExists = xmlUserFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME );
+    bool ifUserFileExists = xmlUserFile.Load( USER_FILE_NAME );
 
 
     if ( ifUserFileExists ) {
@@ -68,7 +68,7 @@ vector <User> UserFile::readUsersFromXmlFile() {
             users.push_back(user);
         }
 
-        xmlUserFile.Save( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME );
+        xmlUserFile.Save( USER_FILE_NAME );
 
     }
 
@@ -97,7 +97,7 @@ bool UserFile::ifLoginFree(string userLogin) {
         return true;
     else {
 
-        bool ifUserFileExists = xmlUserFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME );
+        bool ifUserFileExists = xmlUserFile.Load( USER_FILE_NAME );
 
         if ( ifUserFileExists ) {
 
@@ -120,7 +120,35 @@ bool UserFile::ifLoginFree(string userLogin) {
             }
 
         }
-        xmlUserFile.Save( " C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + USER_FILE_NAME );
+        xmlUserFile.Save( USER_FILE_NAME );
     }
     return true;
+}
+
+void UserFile::replacePasswordInXmlFile(int userId, string oldPassword, string newPassword) {
+
+
+    if (xmlUserFile.Load( USER_FILE_NAME ) ) {
+        xmlUserFile.FindElem();
+        xmlUserFile.IntoElem();
+
+        while ( xmlUserFile.FindElem("User") ) {
+
+            xmlUserFile.IntoElem();
+            xmlUserFile.FindElem("UserId");
+
+            if ( xmlUserFile.GetData() == AuxiliaryMethods::convertIntToString(userId) ) {
+
+                xmlUserFile.FindElem("UserPassword");
+                xmlUserFile.SetData(newPassword);
+                xmlUserFile.Save( USER_FILE_NAME );
+                break;
+            }
+            xmlUserFile.OutOfElem();
+
+        }
+
+
+    }
+
 }

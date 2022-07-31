@@ -5,37 +5,53 @@
 void UserMenedzer::userRegister() {
 
     userOperations.userRegister();
+    users = userOperations.readUsersFromXmlFile();
+    logInUser();
 
 }
 
 void UserMenedzer::logInUser() {
 
-    loggedUserId = userOperations.logInUser();
+    if ( !ifUsersEmpty() ) {
+        loggedUserId = userOperations.logInUser();
 
-    if ( loggedUserId > 0 ){
-        accountOperations = new AccountOperations(loggedUserId);
-        choice = AuxiliaryMethods::displayUserMenu();
-        callCorrespondingFunction();
+        if ( loggedUserId > 0 ) {
+            accountOperations = new AccountOperations(loggedUserId,INCOME_FILE_NAME, EXPENSE_FILE_NAME);
+            choice = AuxiliaryMethods::displayUserMenu();
+            callCorrespondingFunctionUserMenu();
+        }
+
+    } else {
+
+        cout << "\nFile with users is empty. Register a new user first! \n\n";
+        system("pause");
+        userRegister();
+
     }
 
-
 }
 
-void UserMenedzer::displayActualMonthBalance(){
+void UserMenedzer::displayActualMonthBalance() {
 
     accountOperations -> displayActualMonthBalance();
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunctionUserMenu();
 
 }
 
-void UserMenedzer::displayPreviousMonthBalance(){
+void UserMenedzer::displayPreviousMonthBalance() {
 
     accountOperations -> displayPreviousMonthBalance();
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunctionUserMenu();
 
 }
 
-void UserMenedzer::displaySelectedPeriodBalance(){
+void UserMenedzer::displaySelectedPeriodBalance() {
 
     accountOperations -> displayChoosenPeriodBalance();
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunctionUserMenu();
 
 }
 
@@ -48,55 +64,91 @@ bool UserMenedzer::ifUsersEmpty() {
 
 }
 
-void UserMenedzer::addIncome(){
+void UserMenedzer::addIncome() {
 
     accountOperations -> addIncome(loggedUserId);
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunctionUserMenu();
 }
 
-void UserMenedzer::addExpense(){
+void UserMenedzer::addExpense() {
 
     accountOperations -> addExpense(loggedUserId);
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunctionUserMenu();
 }
 
-void UserMenedzer::callCorrespondingFunction(){
+void UserMenedzer::changeUserPassword() {
 
-        switch(choice){
+    userOperations.changeUserPassword(loggedUserId);
+    choice = AuxiliaryMethods::displayUserMenu();
+    callCorrespondingFunctionUserMenu();
+}
+
+void UserMenedzer::logOutUser() {
+
+    char choice = {0};
+    loggedUserId = 0;
+
+    delete accountOperations;
+    accountOperations = NULL;
+    choice = AuxiliaryMethods::displayMainMenu();
+    callCorresspondingFunctionMainMenu();
+
+}
+void UserMenedzer::callCorrespondingFunctionUserMenu() {
+
+    switch(choice) {
 
     case '1':
-            addIncome();
-            break;
+        addIncome();
+        break;
     case '2':
-            addExpense();
-            break;
+        addExpense();
+        break;
     case '3':
-            displayActualMonthBalance();
-            break;
+        displayActualMonthBalance();
+        break;
     case '4':
-            displayPreviousMonthBalance();
-            break;
+        displayPreviousMonthBalance();
+        break;
     case '5':
-            displaySelectedPeriodBalance();
-            break;
-
-        }
-
-
-}
-
-
-void UserMenedzer::displayRegisteredUsers() {
-
-    for (int i = 0; i < users.size(); ++i) {
-
-        cout << users[i].getUserId() << endl;
-        cout << users[i].getUserLogin() << endl;
-        cout << users[i].getUserPassword() << endl;
-        cout << users[i].getUserName() << endl;
-        cout << users[i].getUserSurname() << endl;
+        displaySelectedPeriodBalance();
+        break;
+    case '6':
+        changeUserPassword();
+        break;
+    case '7':
+        logOutUser();
+        break;
 
     }
 
+
 }
 
+void UserMenedzer::callCorresspondingFunctionMainMenu() {
 
+    for(;;) {
+        switch(choice) {
+
+        case '1':
+            userRegister();
+            break;
+        case '2':
+            logInUser();
+            break;
+        case '9':
+            exit(0);
+        default:
+            cout << endl;
+            cout << "It's non of the digit from above ! Try one more time!\n\n";
+            system("pause");
+            choice = AuxiliaryMethods::displayMainMenu();
+            continue;
+        }
+        break;
+    }
+
+}
 

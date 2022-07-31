@@ -25,6 +25,7 @@ public:
     vector <User> readUsersFromXmlFile();
     int getLastUserId();
     bool ifLoginFree(string userLogin);
+    void replacePasswordInXmlFile(int userId, string oldPassword, string newPassword);
 
 
 };

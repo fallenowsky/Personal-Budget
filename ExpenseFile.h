@@ -10,16 +10,16 @@
 
 
 
-class ExpenseFile : public XmlFiles{
+class ExpenseFile : public XmlFiles {
 
-   CMarkup xmlExpenseFile;
+    CMarkup xmlExpenseFile;
 
-   const string EXPENSE_FILE_NAME;
-   const int LOGGED_USER_ID;
+    const string EXPENSE_FILE_NAME;
+    const int LOGGED_USER_ID;
 
 public:
 
-    ExpenseFile(int _LOGGED_USER_ID_) : EXPENSE_FILE_NAME("expenseFile.xml"), LOGGED_USER_ID(_LOGGED_USER_ID_) {}
+    ExpenseFile(int _LOGGED_USER_ID_, string _EXPENSE_FILE_NAME_) : EXPENSE_FILE_NAME(_EXPENSE_FILE_NAME_), LOGGED_USER_ID(_LOGGED_USER_ID_) {}
     void addLoggedUserExpenseToXmlFile(Expense expense);
 
     vector <Expense> readLoggedUserExpensesFromXmlFile();

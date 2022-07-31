@@ -4,7 +4,7 @@
 
 void ExpenseFile::addLoggedUserExpenseToXmlFile(Expense expense) {
 
-    bool ifIncomeFileExists = xmlExpenseFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + EXPENSE_FILE_NAME );
+    bool ifIncomeFileExists = xmlExpenseFile.Load( EXPENSE_FILE_NAME );
 
     if ( !ifIncomeFileExists )
         xmlExpenseFile.AddElem("Expenses");
@@ -19,7 +19,7 @@ void ExpenseFile::addLoggedUserExpenseToXmlFile(Expense expense) {
     xmlExpenseFile.AddElem( "ExpenseItem", expense.getExpenseItem() );
     xmlExpenseFile.AddElem( "ExpenseAmount", to_string( expense.getExpenseAmount() ) );
 
-    xmlExpenseFile.Save( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + EXPENSE_FILE_NAME );
+    xmlExpenseFile.Save( EXPENSE_FILE_NAME );
 
 }
 
@@ -32,7 +32,7 @@ vector <Expense> ExpenseFile::readLoggedUserExpensesFromXmlFile() {
     string xmlInput = "";
     int idUserXml = 0;
 
-    bool ifExpenseFileExists = xmlExpenseFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + EXPENSE_FILE_NAME );
+    bool ifExpenseFileExists = xmlExpenseFile.Load( EXPENSE_FILE_NAME );
 
 
     if ( ifExpenseFileExists ) {
@@ -70,8 +70,7 @@ vector <Expense> ExpenseFile::readLoggedUserExpensesFromXmlFile() {
 
                 xmlExpenseFile.FindElem();
 
-                xmlInput = xmlExpenseFile.GetData();
-                expense.setExpenseDate( AuxiliaryMethods::transformStringToInt(xmlInput) );
+                expense.setExpenseDate( xmlExpenseFile.GetData() );
 
                 xmlExpenseFile.FindElem();
                 expense.setExpenseItem( xmlExpenseFile.GetData() );
@@ -88,7 +87,7 @@ vector <Expense> ExpenseFile::readLoggedUserExpensesFromXmlFile() {
             xmlExpenseFile.OutOfElem();
         }
 
-        xmlExpenseFile.Save( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + EXPENSE_FILE_NAME );
+        xmlExpenseFile.Save( EXPENSE_FILE_NAME );
 
     }
 
@@ -99,7 +98,7 @@ vector <Expense> ExpenseFile::readLoggedUserExpensesFromXmlFile() {
 int ExpenseFile::getLastExpenseId() {
 
 
-    bool ifEpenseFileExists = xmlExpenseFile.Load( "C:\\Programming\\Repos\\projektFinanse\\personalBudget\\" + EXPENSE_FILE_NAME );
+    bool ifEpenseFileExists = xmlExpenseFile.Load( EXPENSE_FILE_NAME );
 
     string xmlExpenseId = "";
     int xmlExpenseIdInt = 0;
@@ -122,6 +121,8 @@ int ExpenseFile::getLastExpenseId() {
         }
 
     }
+
+    xmlExpenseFile.Save( EXPENSE_FILE_NAME );
 
     return xmlExpenseIdInt;
 }

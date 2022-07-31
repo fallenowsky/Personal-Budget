@@ -1,24 +1,27 @@
 #ifndef _DATE_H
 #define _DATE_H
 
+#include<iostream>
 
+using namespace std;
 
+class Date {
 
-class Date{
-
-    int year;
-    int month;
-    int day;
+    string year;
+    string month;
+    string day;
 
 public:
 
-int getYear();
-int getMonth();
-int getDay();
+    Date ( string year  = "2022", string month = "01", string day = "01" ) { }
+    string getYear();
+    string getMonth();
+    string getDay();
 
-void setYear(int year);
-void setMonth(int month);
-void setDay(int day);
+    void setYear(string year);
+    void setMonth(string month);
+    void setDay(string day);
+
 
 
 };

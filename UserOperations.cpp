@@ -3,36 +3,48 @@
 
 void UserOperations::userRegister() {
 
+    system("cls");
+    cout << endl;
+    cout << ">>>REGISTRATION MENU<<< \n\n";
+
     User user;
 
     user = getUserData();
 
-    if ( userFile.addUserToXmlFile(user) )
-        cout << "You have successfully added a new user to file ";
-    else
+    if ( userFile.addUserToXmlFile(user) ) {
+        cout << "You have successfully added a new user to file \n\n";
+        system("pause");
+    } else
         cout << "There was a problem with adding a new user to file";
 
 
 }
 int UserOperations::logInUser() {
 
+loginLabel:
+
+    system("cls");
+    cout << endl;
+    cout << ">>>Log-In MENU<<< \n\n";
+
     string input;
     int usersCount = users.size();
     const int triesCount = 4;
+    bool userExists = false;
 
-    cout << "Enter login: ";
+
+
+    cout << "\nEnter login: ";
     input = AuxiliaryMethods::readLine();
 
     for(int i = 0; i < usersCount; ++i) {
 
         if ( users[i].getUserLogin() == input ) {
 
-            cout << endl;
-            cout << "I have found a user with this login in base! Enter a password now: \n\n";
-
             for (int j = 1; j < triesCount; j++) {
 
-                cout << "It's your " << j << " chance\n";
+                cout << "\nIt's your " << j << " chance\n";
+                cout << "Enter password: ";
 
                 input = AuxiliaryMethods::readLine();
 
@@ -46,20 +58,27 @@ int UserOperations::logInUser() {
                     continue;
             }
 
+            userExists = true;
             cout << endl;
             cout << "You don't have more chances!\n\n";
             system("pause");
             return 0;
 
-        }
+        } else
+            continue;
 
     }
+
+    if ( !userExists ) {
+
+        cout << "There is no user like " << input <<". Try one more time!\n";
+        system("pause");
+        goto loginLabel;
+
+    }
+
 }
 User UserOperations::getUserData() {
-
-    system("cls");
-    cout << endl;
-    cout << ">>>REGISTRATION MENU<<< \n\n";
 
     User user;
 
@@ -80,7 +99,7 @@ loginLabel:
             cout << "This login is occupied by another user. Try one more time!\n";
             goto loginLabel;
         }
-    } else{
+    } else {
 
         cout << "Enter a login which has at least 4 signs!\n";
         system("pause");
@@ -101,7 +120,7 @@ nameLabel:
 
         input = AuxiliaryMethods::transformFirstLetterToHighRestToLow(input);
         user.setUserName(input);
-    } else{
+    } else {
         cout << "Enter a Name which has at least 4 signs!\n";
         system("pause");
         goto nameLabel;
@@ -115,7 +134,7 @@ surnameLabel:
     if ( AuxiliaryMethods::checkInputDataValidity(input) ) {
         input = AuxiliaryMethods::transformFirstLetterToHighRestToLow(input);
         user.setUserSurname(input);
-    } else{
+    } else {
         cout << "Enter a Surname which has at least 4 signs!\n";
         system("pause");
         goto surnameLabel;
@@ -131,4 +150,47 @@ vector <User> UserOperations::readUsersFromXmlFile() {
 
 }
 
+bool UserOperations::changeUserPassword(const int LOGGED_USER_ID) {
+
+    string newPassword = "";
+    string oldPassword = "";
+
+    int userId = 0;
+    int usersCout = users.size();
+
+    bool controlBit = false;
+
+
+    for (int j = 0; j < usersCout; ++j) {
+
+        if ( users[j].getUserId() == LOGGED_USER_ID ) {
+
+            cout << "Type old password: ";
+            oldPassword = AuxiliaryMethods::readLine();
+
+
+            if ( oldPassword == users[j].getUserPassword() && LOGGED_USER_ID == users[j].getUserId() ) {
+
+                cout << endl;
+                cout << "Type new password: ";
+                newPassword = AuxiliaryMethods::readLine();
+                controlBit = 1;
+                users[j].setUserPassword(newPassword);
+                userFile.replacePasswordInXmlFile(LOGGED_USER_ID, oldPassword,newPassword);
+
+                cout << "Password changed! \n";
+                system("pause");
+            }
+
+        }
+    }
+
+    if ( !controlBit ) {
+
+        cout << "User not found! \n";
+        system("pause");
+
+    }
+
+}
 
