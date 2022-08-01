@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
 
-
+        cout << sizeof() <<endl; system("pause");
         PersonalBudget personalBudget("usersXmlFile.xml", "incomeXmlFile.xml", "expenseXmlFile.xml");
 
 return 0;

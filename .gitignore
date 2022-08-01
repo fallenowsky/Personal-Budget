@@ -1,6 +1,9 @@
 bin/
 obj/
-personalBudget.*
+personalBudget.depend
+personalBudget.uxf
+personalBudget.cscope_file_list
+personalBudget.cbp
 *.xml
 
 # Prerequisites
