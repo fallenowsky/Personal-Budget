@@ -5,4 +5,4 @@ It gives the opportunity to add as many users as you wish and each of them has h
 Incomes and expenses overviews display your incoomes, expenses and balance which is calculated according to data you have typed.
 Users, incomes and expenses data are stored in XML file.
 I use CMarkup library to work with XML file. 
-This app was whole coded in Object Oriented Programming standart.
+This app was whole coded in Object Oriented Programming standard.
