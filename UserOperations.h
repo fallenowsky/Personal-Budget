@@ -22,7 +22,7 @@ public:
     void userRegister();
     vector <User> readUsersFromXmlFile();
     int logInUser();
-    bool changeUserPassword(const int LOGGED_USER_ID);
+    void changeUserPassword(const int LOGGED_USER_ID);
 
 
 

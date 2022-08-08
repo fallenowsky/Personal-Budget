@@ -150,12 +150,11 @@ vector <User> UserOperations::readUsersFromXmlFile() {
 
 }
 
-bool UserOperations::changeUserPassword(const int LOGGED_USER_ID) {
+void UserOperations::changeUserPassword(const int LOGGED_USER_ID) {
 
     string newPassword = "";
     string oldPassword = "";
 
-    int userId = 0;
     int usersCout = users.size();
 
     bool controlBit = false;

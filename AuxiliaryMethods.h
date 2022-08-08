@@ -1,11 +1,13 @@
 #ifndef _AUXILIARYMETHODS_H
 #define _AUXILIARYMETHODS_H
 
+
 #include <iostream>
 #include <sstream>
 #include <time.h>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 
 #include "Date.h"
 #include "Income.h"

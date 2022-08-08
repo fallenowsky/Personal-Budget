@@ -28,9 +28,9 @@ class UserMenedzer {
 
 public:
 
-    UserMenedzer(string USER_FILE_NAME, string _INCOME_FILE_NAME_, string _EXPENSE_FILE_NAME_)
+    UserMenedzer(string user_file_name, string income_file_name, string expense_file_name)
 
-        : userOperations(USER_FILE_NAME), INCOME_FILE_NAME(_INCOME_FILE_NAME_), EXPENSE_FILE_NAME(_EXPENSE_FILE_NAME_ ) {
+        : userOperations(user_file_name), INCOME_FILE_NAME(income_file_name), EXPENSE_FILE_NAME(expense_file_name ) {
         users = userOperations.readUsersFromXmlFile();
         loggedUserId = 0;
         accountOperations = NULL;

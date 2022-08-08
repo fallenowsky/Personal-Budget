@@ -107,18 +107,18 @@ void AuxiliaryMethods::displaySortedIncomesAndExpenses(vector <Income> &incomesS
         cout << "Income User ID: " << incomesSorted[i].getIncomeUserId() << endl;
         cout << "Income Date: " << incomesSorted[i].getIncomeDate() << endl ;
         cout << "Income Item: " << incomesSorted[i].getIncomeItem() << endl;
-        cout << "Income Amount: " << incomesSorted[i].getIncomeAmount() << endl;
+        cout << "Income Amount: " << fixed << setprecision(2) << incomesSorted[i].getIncomeAmount() << endl;
 
     }
 
     for ( int i = 0; i < expensesCount; ++i) {
 
-        cout <<  "\t\t\tEXPENSE NR" << i+1 <<" :" <<" \n\n";
+        cout <<  "\n\t\t\tEXPENSE NR" << i+1 <<" :" <<" \n\n";
         cout <<  "\t\t\tExpense ID: " << expensesSorted[i].getExpenseId() << endl;
         cout << "\t\t\tExpense User ID: " << expensesSorted[i].getExpenseUserId() << endl;
         cout <<  "\t\t\tExpense Date: " << expensesSorted[i].getExpenseDate() << endl;
         cout <<  "\t\t\tExpense Item: " << expensesSorted[i].getExpenseItem() << endl;
-        cout << "\t\t\tExpense Amount: " << expensesSorted[i].getExpenseAmount() << endl << endl;
+        cout << "\t\t\tExpense Amount: " << fixed << setprecision(2) << expensesSorted[i].getExpenseAmount() << endl << endl;
     }
 
 
@@ -136,8 +136,8 @@ void AuxiliaryMethods::displayBalance(double incomes, double expenses, int which
     else
         balanceType = " choosen period of time ";
 
-    cout <<"Your incomes from" << balanceType << "are equals to " << incomes;
-    cout <<"\t Your expenses from" << balanceType << "are equals to " << expenses << endl;
+    cout <<"Your incomes from" << balanceType << "are equals to " << fixed << setprecision(2) << incomes;
+    cout <<"\t Your expenses from" << balanceType << "are equals to " << fixed << setprecision(2) << expenses << endl;
     cout << "\n\t\t\tYour balance from" << balanceType <<": " << incomes - expenses << " PLN" << endl << endl ;
 
     system("pause");

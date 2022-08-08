@@ -8,6 +8,8 @@ void AccountOperations::addIncome(int loggedUserId) {
 
     income = getIncomeData(loggedUserId);
 
+    incomes.clear();
+    incomes = incomeFile.readLoggedUserIncomesFromXmlFile();
 
 
 }
@@ -228,12 +230,10 @@ double AccountOperations::getPreviousMonthIncome() {
     date = AuxiliaryMethods::getSystemTime();
     incomesData.clear();
 
-    int actualDateInt = 0, daysCountInPreviousMonth = 0, numberOfActualDay = 0, endOfPreviousMonth = 0, beginOfPreviousMonth = 0 ;
+    int actualDateInt = 0, numberOfActualDay = 0, endOfPreviousMonth = 0, beginOfPreviousMonth = 0 ;
     double previousMonthIncomes = 0;
 
     actualDateInt = readActualDateAndConvertToInt();
-
-    daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth( AuxiliaryMethods::transformStringToInt( date.getMonth() ) - 1 );
 
     numberOfActualDay = AuxiliaryMethods::transformStringToInt( date.getDay() );
 
@@ -267,12 +267,10 @@ double AccountOperations::getPreviousMonthExpense() {
 
     date = AuxiliaryMethods::getSystemTime();
 
-    int actualDateInt = 0, daysCountInPreviousMonth = 0, numberOfActualDay = 0, endOfPreviousMonth = 0, beginOfPreviousMonth = 0 ;
+    int actualDateInt = 0, numberOfActualDay = 0, endOfPreviousMonth = 0, beginOfPreviousMonth = 0 ;
     double previousMonthExpenses = 0;
 
     actualDateInt = readActualDateAndConvertToInt();
-
-    daysCountInPreviousMonth = AuxiliaryMethods::howManyDaysInMonth(  AuxiliaryMethods::transformStringToInt( date.getMonth() ) - 1 );
 
     numberOfActualDay = AuxiliaryMethods::transformStringToInt( date.getDay() );
 
@@ -319,8 +317,15 @@ dateLabel:
 
             cout << "Enter a date to which would you like to search(Format: YYYY-MM-DD): ";
             dateToString = AuxiliaryMethods::readLine();
+            dateToInt = AuxiliaryMethods::fetchDigitsFromDate(dateToString);
 
             if ( AuxiliaryMethods::checkDateIfCorrect(dateToString)) {
+
+                if (dateFromInt > dateToInt) {
+                    cout << "\nDate periods are incorrect!\n";
+                    system("pause");
+                    goto dateLabel;
+                }
 
                 dateToInt = AuxiliaryMethods::fetchDigitsFromDate(dateToString);
 
@@ -347,9 +352,12 @@ dateLabel:
         AuxiliaryMethods::sortIncomesAndExpenses(incomesData,expensesData);
         AuxiliaryMethods::displayBalance(incomesAmount, expensesAmount, 3);
 
-    } else
+    } else {
+
         cout << "There is no incomes or expenses\n";
-    system("pause");
+        system("pause");
+    }
+
 }
 
 double AccountOperations::getChoosenPeriodIncome(int dateFrom, int dateTo) {
@@ -404,7 +412,8 @@ void AccountOperations::addExpense(int loggedUserId) {
 
     expense = getExpenseData(loggedUserId);
 
-
+    expenses.clear();
+    expenses = expenseFile.readLoggedUserExpensesFromXmlFile();
 
 }
 

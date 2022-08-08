@@ -1,7 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include "Markup.h"
-#include "PersonalBudget.h"
+#include "UserMenedzer.h"
 
 
 using namespace std;
@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
 
-        PersonalBudget personalBudget("usersXmlFile.xml", "incomeXmlFile.xml", "expenseXmlFile.xml");
+        UserMenedzer userMenedzer("usersXmlFile.xml", "incomeXmlFile.xml", "expenseXmlFile.xml");
 
 return 0;
 
